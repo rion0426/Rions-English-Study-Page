@@ -1,0 +1,7 @@
+It is **common** to read that farm data **belongs** to the farmer.
+It is sometimes even **stated** in **contracts**.
+However, ‘**ownership**' is a legal **assertion** and data ownership is not **addressed** by **legislation** except for **copyright** for datasets as **intellectual products**.
+This is partly due to the **peculiar** **nature** of data **compared** to other goods that can be owned.
+In legal terms, it is **non-rivalrous**: the same data can be in different places and be owned by different people because, when data is **copied** or **migrated** to other platforms, it remains the same.
+In addition, there is a **difference** between data **collected** in a **structured** dataset, which can be **considered** as an intellectual product by law, and **raw data** as **individual**, **unstructured** bits before they are collected and made sense of.
+These raw data are **similar** to facts, for which no copyright and no ownership is legally **applicable**.

@@ -1,0 +1,7 @@
+Good design starts with an **understanding** of psychology and technology.
+Good design **requires** good **communication**, especially from machine to person, **indicating** what actions are **possible**, what is happening, and what is about to happen.
+Communication is **especially** important when things go **wrong**.
+It is **relatively** easy to design things that work **smoothly** and **harmoniously** as long as things go right.
+But as soon as there is a problem or a **misunderstanding**, the problems **arise** and this is where good design is **essential**.
+Designers need to **focus** their attention on the cases where things go wrong, not just on when things work as **planned**.
+Actually, this is where the most **satisfaction** can arise: when something goes wrong but the machine **highlights** the problems, then the person understands the **issue**, takes the **proper** actions, and the problem is **solved**.

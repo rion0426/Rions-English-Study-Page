@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fill in the Blanks</title>
+    <style>
+        :root {
+            --bg-color: #f7f9fc; --text-color: #333; --text-color-light: #555; --card-bg: #fff;
+            --shadow-color: rgba(0,0,0,0.05); --current-bg: #cfe2ff; --correct-color: #28a745;
+            --incorrect-color: #dc3545; --incorrect-bg: #f8d7da; --upcoming-color: #ccc;
+            --link-color: #007bff; --link-hover-color: #0056b3; --highlight-color: #eee;
+        }
+        body.dark-mode {
+            --bg-color: #1a1a1a; --text-color: #e0e0e0; --text-color-light: #aaa; --card-bg: #2c2c2c;
+            --shadow-color: rgba(0,0,0,0.2); --current-bg: #3a5378; --correct-color: #28a745;
+            --incorrect-color: #ff6b81; --incorrect-bg: #5c2c34; --upcoming-color: #666;
+            --link-color: #3498db; --link-hover-color: #2980b9; --highlight-color: #444;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); }
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color); color: var(--text-color); display: flex;
+            justify-content: center; align-items: center; min-height: 100vh;
+            margin: 0; padding: 20px; box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            width: 90%; max-width: 800px; text-align: center;
+            padding-bottom: 20px; opacity: 0; animation: fadeIn 0.5s ease-out 0.2s forwards;
+        }
+        .title-wrapper {
+            display: flex; justify-content: center; align-items: center;
+            gap: 20px; margin-bottom: 20px;
+        }
+        .title-image {
+            width: 60px; height: 60px; border-radius: 50%;
+            overflow: hidden; box-shadow: 0 2px 5px var(--shadow-color); flex-shrink: 0;
+            opacity: 0; animation: fadeIn 1s ease-out forwards;
+        }
+        .title-image img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { font-size: 2em; margin: 0; }
+        .back-link {
+            font-size: 1rem; font-weight: 500; color: var(--text-color-light);
+            text-decoration: none; transition: color 0.3s; white-space: nowrap;
+        }
+        .back-link:hover { color: var(--link-color); }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .nav-button {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-color-light);
+            text-decoration: none;
+            transition: all 0.2s;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+        .nav-button:hover {
+            color: var(--link-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        #text-display {
+    max-height: 40vh;
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+#text-display::-webkit-scrollbar { display: none; }
+
+#text-display {
+            font-size: 1.6em;
+            letter-spacing: 2px;
+            line-height: 1.8;
+            background-color: var(--card-bg);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            text-align: left;
+            margin: 0 auto 25px auto;
+            white-space: pre-wrap;
+            transition: all 0.3s;
+        }
+
+        .blank-input {
+            border: none;
+            border-bottom: 2px solid var(--upcoming-color);
+            background-color: transparent;
+            color: var(--text-color);
+            font-size: 1em;
+            margin: 0 2px;
+            padding: 0;
+            text-align: center;
+            outline: none;
+            transition: border-bottom-color 0.3s;
+        }
+
+        .blank-input.correct {
+            border-bottom-color: var(--correct-color);
+        }
+
+        .blank-input.incorrect {
+            border-bottom-color: var(--incorrect-color);
+        }
+
+        .blank-input:focus {
+            background-color: var(--highlight-color);
+        }
+        
+        .controls { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; max-width: 800px; margin: 0 auto; }
+        .info { font-size: 1.2em; color: var(--text-color-light); text-align: left; }
+        .switch-container { display: flex; align-items: center; gap: 20px; }
+        .switch-group { display: flex; align-items: center; }
+        .switch-label { margin-left: 10px; color: var(--text-color-light); font-size: 0.9em; user-select: none; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--link-color); }
+        input:checked + .slider:before { transform: translateX(20px); }
+        @media (max-width: 1400px) { .title-image { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-wrapper">
+            {% if random_image %}
+            <div class="title-image">
+                <img src="{{ url_for('static', filename='img/' + random_image) }}" alt="Random image thumbnail">
+            </div>
+            {% endif %}
+            <h1>{{ title }}</h1>
+            <a href="{{ url_for('select', subdirectory=parent_dir_path) }}" class="back-link">&laquo; 목록으로 (Shift+E)</a>
+        </div>
+        <div id="text-display"></div>
+        <div class="navigation-buttons">
+            {% if previous_text_path %}
+                <a href="{{ url_for('fill', text_path=previous_text_path) }}" class="nav-button">&laquo; 이전 글</a>
+            {% else %}
+                <span></span>
+            {% endif %}
+            {% if next_text_path %}
+                <a href="{{ url_for('fill', text_path=next_text_path) }}" class="nav-button">다음 글 &raquo;</a>
+            {% endif %}
+        </div>
+        <div class="controls">
+            <div class="info"><p>빈칸을 채우세요.</p></div>
+            <div class="switch-container">
+                <div class="switch-group">
+                    <label class="switch"><input type="checkbox" id="toggle-preview"><span class="slider"></span></label>
+                    <label for="toggle-preview" class="switch-label">미리보기 (Ctrl+H)</label>
+                </div>
+                <div class="switch-group">
+                    <label class="switch"><input type="checkbox" id="darkModeToggle"><span class="slider"></span></label>
+                    <label for="darkModeToggle" class="switch-label">다크모드</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const originalTextContent = {{ text_content|tojson }};
+        const parentListUrl = {{ url_for('select', subdirectory=parent_dir_path)|tojson }};
+        const previousTextUrl = {{ url_for('fill', text_path=previous_text_path)|tojson if previous_text_path else 'null' }};
+        const nextTextUrl = {{ url_for('fill', text_path=next_text_path)|tojson if next_text_path else 'null' }};
+        const textDisplay = document.getElementById('text-display');
+        const previewToggle = document.getElementById('toggle-preview');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+
+        let blanks = [];
+        let currentBlankIndex = -1;
+
+        function renderText() {
+            textDisplay.innerHTML = '';
+            blanks = [];
+            const parts = originalTextContent.split(/(\*\*.*?\*\*)/);
+            parts.forEach((part, index) => {
+                if (part.startsWith('**') && part.endsWith('**')) {
+                    const word = part.slice(2, -2);
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.classList.add('blank-input');
+                    input.dataset.correct = word;
+                    input.style.width = (word.length * 1.2) + 'ch';
+                    input.addEventListener('input', checkAnswer);
+                    input.addEventListener('focus', (e) => {
+                        currentBlankIndex = blanks.indexOf(e.target);
+                        e.target.classList.add('focused');
+                    });
+                    input.addEventListener('blur', (e) => {
+                        e.target.classList.remove('focused');
+                    });
+                    textDisplay.appendChild(input);
+                    blanks.push(input);
+                } else {
+                    textDisplay.appendChild(document.createTextNode(part));
+                }
+            });
+            if (blanks.length > 0) {
+                blanks[0].focus();
+            }
+        }
+
+        function checkAnswer(e) {
+            const input = e.target;
+            if (input.value.toLowerCase() === input.dataset.correct.toLowerCase()) {
+                input.classList.add('correct');
+                input.classList.remove('incorrect');
+            } else {
+                input.classList.add('incorrect');
+                input.classList.remove('correct');
+            }
+
+            checkCompletion();
+        }
+
+        function checkCompletion() {
+            const allCorrect = blanks.every(input => input.classList.contains('correct'));
+            if (allCorrect) {
+                document.querySelector('.info p').innerText = '완료!';
+            }
+        }
+
+        function updatePreview() {
+            const isPreviewing = previewToggle.checked;
+            if (!isPreviewing) {
+                blanks.forEach(input => { input.placeholder = ''; });
+                return;
+            }
+
+            const focusedInput = document.querySelector('.blank-input:focus');
+            if (focusedInput) {
+                focusedInput.value = '';
+            }
+            
+            blanks.forEach(input => {
+                input.placeholder = input.dataset.correct;
+            });
+        }
+
+        previewToggle.addEventListener('change', updatePreview);
+
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+        
+        // practice.html의 shift+E 바로가기 기능 추가 (캡처 단계에서 처리, 부모 목록으로 이동)
+        document.addEventListener('keydown', (e) => {
+            if (e.shiftKey && e.key.toLowerCase() === 'e') {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                if (parentListUrl) window.location.href = parentListUrl;
+            }
+        }, true);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key.toLowerCase() === 'h') {
+                e.preventDefault();
+                previewToggle.click();
+                return;
+            }
+
+            if (e.ctrlKey && e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (nextTextUrl) {
+                    window.location.href = nextTextUrl;
+                }
+                return;
+            } else if (e.ctrlKey && e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (previousTextUrl) {
+                    window.location.href = previousTextUrl;
+                }
+                return;
+            }
+
+            if (e.shiftKey && e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (currentBlankIndex < blanks.length - 1) {
+                    currentBlankIndex++;
+                    blanks[currentBlankIndex].focus();
+                }
+            } else if (e.shiftKey && e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentBlankIndex > 0) {
+                    currentBlankIndex--;
+                    blanks[currentBlankIndex].focus();
+                }
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentBlankIndex < blanks.length - 1) {
+                    currentBlankIndex++;
+                    blanks[currentBlankIndex].focus();
+                }
+            }
+        });
+
+        function initialize() {
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+            }
+            renderText();
+        }
+
+        initialize();
+    </script>
+</body>
+</html>

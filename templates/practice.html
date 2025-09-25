@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Practice</title>
+    <style>
+        :root {
+            --bg-color: #f7f9fc; --text-color: #333; --text-color-light: #555; --card-bg: #fff;
+            --shadow-color: rgba(0,0,0,0.05); --current-bg: #cfe2ff; --correct-color: #28a745;
+            --incorrect-color: #dc3545; --incorrect-bg: #f8d7da; --upcoming-color: #ccc;
+            --link-color: #007bff; --link-hover-color: #0056b3;
+        }
+        body.dark-mode {
+            --bg-color: #1a1a1a; --text-color: #e0e0e0; --text-color-light: #aaa; --card-bg: #2c2c2c;
+            --shadow-color: rgba(0,0,0,0.2); --current-bg: #3a5378; --correct-color: #28a745;
+            --incorrect-color: #ff6b81; --incorrect-bg: #5c2c34; --upcoming-color: #666;
+            --link-color: #3498db; --link-hover-color: #2980b9;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popIn {
+            from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; }
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color); color: var(--text-color); display: flex;
+            justify-content: center; align-items: center; min-height: 100vh;
+            margin: 0; padding: 20px; box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .container {
+            width: 90%; max-width: 800px; text-align: center;
+            padding-bottom: 20px; opacity: 0; animation: fadeIn 0.5s ease-out 0.2s forwards;
+        }
+        .title-wrapper {
+            display: flex; justify-content: center; align-items: center;
+            gap: 20px; margin-bottom: 20px;
+        }
+        .title-image {
+            width: 60px; height: 60px; border-radius: 50%;
+            overflow: hidden; box-shadow: 0 2px 5px var(--shadow-color); flex-shrink: 0;
+            opacity: 0; animation: fadeIn 1s ease-out forwards;
+        }
+        .title-image img { width: 100%; height: 100%; object-fit: cover; }
+        h1 { font-size: 2em; margin: 0; }
+        .back-link {
+            font-size: 1rem; font-weight: 500; color: var(--text-color-light);
+            text-decoration: none; transition: color 0.3s; white-space: nowrap;
+        }
+        .back-link:hover { color: var(--link-color); }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .nav-button {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--text-color-light);
+            text-decoration: none;
+            transition: all 0.2s;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+        .nav-button:hover {
+            color: var(--link-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        #text-display::-webkit-scrollbar { display: none; }
+        #text-display {
+            -ms-overflow-style: none; scrollbar-width: none; max-height: 40vh;
+            overflow-y: auto; overflow-wrap: break-word; font-size: 1.6em;
+            letter-spacing: 2px; line-height: 1.8; background-color: var(--card-bg);
+            padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px var(--shadow-color);
+            text-align: left; margin: 0 auto 25px auto; white-space: pre-wrap;
+            transition: all 0.3s; outline: none; user-select: none;
+        }
+        #text-display span {
+            position: relative; color: var(--upcoming-color); transition: color 0.2s, background-color 0.2s;
+        }
+        #text-display span.correct { color: var(--correct-color); }
+
+        #text-display span.current {
+            background-color: var(--current-bg);
+            border-radius: 3px;
+            padding: 0.1em 0.15em;
+            margin: -0.1em -0.15em;
+        }
+        #text-display span.incorrect {
+            color: var(--incorrect-color);
+        }
+
+        /* 변경된 한 줄: partial-preview-active인 경우는 숨기지 않도록 예외를 추가 */
+        body.hide-upcoming #text-display span:not(.correct):not(.incorrect):not(.partial-preview-active) { color: transparent; transition: color 0s; }
+
+        body.hide-upcoming #text-display span.partial-preview-active {
+            color: var(--upcoming-color);
+        }
+        body.hide-upcoming #text-display span.current.partial-preview-active {
+            color: var(--text-color);
+        }
+        body.hide-upcoming #text-display span.current:not(.correct):not(.incorrect):not(.partial-preview-active) { color: transparent; }
+        .controls { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; max-width: 800px; margin: 0 auto; }
+        .info { font-size: 1.2em; color: var(--text-color-light); text-align: left; }
+        .switch-container { display: flex; align-items: center; gap: 20px; }
+        .switch-group { display: flex; align-items: center; }
+        .switch-label { margin-left: 10px; color: var(--text-color-light); font-size: 0.9em; user-select: none; }
+        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch input { opacity: 0; width: 0; height: 0; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
+        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        input:checked + .slider { background-color: var(--link-color); }
+        input:checked + .slider:before { transform: translateX(20px); }
+        @media (max-width: 1400px) { .title-image { display: none; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title-wrapper">
+            {% if random_image %}
+            <div class="title-image">
+                <img src="{{ url_for('static', filename='img/' + random_image) }}" alt="Random image thumbnail">
+            </div>
+            {% endif %}
+            <h1>{{ title }}</h1>
+            <a href="{{ url_for('select', subdirectory=parent_dir_path) }}" class="back-link">&laquo; 목록으로 (Shift+E)</a>
+        </div>
+        <div id="text-display" tabindex="0"></div>
+        <div class="navigation-buttons">
+            {% if previous_text_path %}
+                <a href="{{ url_for('practice', text_path=previous_text_path) }}" class="nav-button">&laquo; 이전 글</a>
+            {% else %}
+                <span></span>
+            {% endif %}
+            {% if next_text_path %}
+                <a href="{{ url_for('practice', text_path=next_text_path) }}" class="nav-button">다음 글 &raquo;</a>
+            {% endif %}
+        </div>
+        <div class="controls">
+            <div class="info"><p>타이핑을 시작하세요.</p></div>
+            <div class="switch-container">
+                <div class="switch-group">
+                    <label class="switch"><input type="checkbox" id="toggle-visibility"><span class="slider"></span></label>
+                    <label for="toggle-visibility" class="switch-label">미리보기 (Ctrl+O)</label>
+                </div>
+                <div class="switch-group">
+                    <label class="switch"><input type="checkbox" id="toggle-partial-preview"><span class="slider"></span></label>
+                    <label for="toggle-partial-preview" class="switch-label">일부 미리보기 (Ctrl+H)</label>
+                </div>
+                <div class="switch-group">
+                    <label class="switch"><input type="checkbox" id="darkModeToggle"><span class="slider"></span></label>
+                    <label for="darkModeToggle" class="switch-label">다크모드</label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // 서버에서 전달된 텍스트에서 ** 표식은 무시 (빈칸 채우기 표식 제거)
+        const originalTextContent = {{ text_content|tojson }}.replace(/\*\*/g, '');
+        const parentListUrl = {{ url_for('select', subdirectory=parent_dir_path)|tojson }};
+        const previousTextUrl = {{ url_for('practice', text_path=previous_text_path)|tojson if previous_text_path else 'null' }};
+        const nextTextUrl = {{ url_for('practice', text_path=next_text_path)|tojson if next_text_path else 'null' }};
+        const textDisplay = document.getElementById('text-display');
+        const visibilityToggle = document.getElementById('toggle-visibility');
+        const partialPreviewToggle = document.getElementById('toggle-partial-preview');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        let currentIndex = 0;
+        const punctuationToSkip = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~\n\t';
+
+        function skipUntypableCharacters() {
+            while (currentIndex < characters.length) {
+                const charCode = originalTextContent[currentIndex].charCodeAt(0);
+                if (charCode > 126 || (charCode < 32 && charCode !== 9 && charCode !== 10)) {
+                    characters[currentIndex].classList.add('correct');
+                    currentIndex++;
+                } else {
+                    break;
+                }
+            }
+        }
+
+        const characters = originalTextContent.split('').map(char => {
+            const span = document.createElement('span');
+            span.innerText = char;
+            textDisplay.appendChild(span);
+            return span;
+        });
+
+        // 일부 미리보기: 현재 인덱스에서 다음 단어 전체(공백 기준)를 항상 찾아 표시
+        function updatePartialPreview() {
+            // 기존 표시 제거
+            characters.forEach(span => span.classList.remove('partial-preview-active'));
+
+            if (!partialPreviewToggle.checked) return;
+
+            // 항상 current 위치는 보이도록 처리
+            if (currentIndex < characters.length) {
+                characters[currentIndex].classList.add('partial-preview-active');
+            }
+
+            // 텍스트 끝이면 종료
+            if (currentIndex >= originalTextContent.length) return;
+
+            // 헬퍼: 공백 판별
+            const isWhitespace = ch => /\s/.test(ch);
+
+            // 다음 단어의 시작은 currentIndex에서 첫 비공백 문자(혹은 currentIndex 자체)가 됨
+            let start = currentIndex;
+            while (start < originalTextContent.length && isWhitespace(originalTextContent[start])) {
+                start++;
+            }
+            if (start >= originalTextContent.length) return;
+
+            // 단어 끝 찾기
+            let end = start;
+            while (end < originalTextContent.length && !isWhitespace(originalTextContent[end])) {
+                end++;
+            }
+
+            // word 범위 전체를 표시
+            for (let i = start; i < end; i++) {
+                if (i >= 0 && i < characters.length) {
+                    characters[i].classList.add('partial-preview-active');
+                }
+            }
+
+            // 콘솔에 현재 미리보고 있는 단어와 인덱스 정보를 출력
+            const previewedWord = originalTextContent.substring(start, end);
+            console.log('Partial preview word:', previewedWord, 'startIndex:', start, 'endIndex:', end - 1);
+        }
+
+        function updateCursor() {
+            characters.forEach((span, index) => {
+                span.classList.remove('current');
+                if (index === currentIndex) span.classList.add('current');
+            });
+            const currentSpan = document.querySelector('#text-display .current');
+            if (currentSpan) {
+                currentSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            updatePartialPreview();
+        }
+
+        function isSkippable(index) {
+            if (index < 0 || index >= originalTextContent.length) return false;
+            const char = originalTextContent[index];
+            const charCode = char.charCodeAt(0);
+            const isPunctuation = punctuationToSkip.includes(char);
+            const isUntypable = charCode > 126 || (charCode < 32 && charCode !== 9 && charCode !== 10);
+            return isPunctuation || isUntypable;
+        }
+
+        function skipPunctuation() {
+            while (currentIndex < characters.length && punctuationToSkip.includes(originalTextContent[currentIndex])) {
+                characters[currentIndex].classList.add('correct');
+                currentIndex++;
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.shiftKey && e.key.toLowerCase() === 'e') {
+                e.stopImmediatePropagation();
+                if (parentListUrl) window.location.href = parentListUrl;
+            }
+        }, true);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'ArrowLeft') {
+                if (previousTextUrl) window.location.href = previousTextUrl;
+                return;
+            }
+            if (e.ctrlKey && e.key === 'ArrowRight') {
+                if (nextTextUrl) window.location.href = nextTextUrl;
+                return;
+            }
+            if (e.ctrlKey && e.key.toLowerCase() === 'o') {
+                e.preventDefault();
+                visibilityToggle.click();
+                return;
+            }
+            if (e.ctrlKey && e.key.toLowerCase() === 'h') {
+                e.preventDefault();
+                partialPreviewToggle.click();
+                return;
+            }
+            if (e.metaKey || e.altKey) return;
+
+            const typedChar = e.key;
+
+            if (typedChar === 'Backspace') {
+                e.preventDefault();
+                if (currentIndex > 0) {
+                    do {
+                        currentIndex--;
+                        const span = characters[currentIndex];
+                        span.classList.remove('correct', 'incorrect');
+                        span.innerText = originalTextContent[currentIndex];
+                    } while (currentIndex > 0 && isSkippable(currentIndex));
+                }
+                updateCursor();
+                return;
+            }
+
+            skipUntypableCharacters();
+            if (currentIndex >= characters.length) return;
+
+            if (typedChar.length === 1) {
+                e.preventDefault();
+                const span = characters[currentIndex];
+                const correctChar = originalTextContent[currentIndex];
+
+                if (typedChar.toLowerCase() === correctChar.toLowerCase()) {
+                    span.innerText = correctChar;
+                    span.classList.remove('incorrect');
+                    span.classList.add('correct');
+                    currentIndex++;
+                } else {
+                    if (correctChar === ' ' || typedChar === ' ') {
+                        return;
+                    }
+                    span.innerText = typedChar;
+                    span.classList.add('incorrect');
+                    currentIndex++;
+                }
+            }
+            skipPunctuation();
+            skipUntypableCharacters();
+            updateCursor();
+            if (currentIndex >= characters.length) {
+                document.querySelector('.info p').innerText = '완료!';
+                if (characters.length > 0) characters[characters.length - 1].classList.remove('current');
+            }
+        });
+
+        // 토글 동기화: partial ON이면 visibility OFF, 그리고 hide-upcoming 상태를 명확히 설정
+        visibilityToggle.addEventListener('change', () => {
+            if (visibilityToggle.checked) {
+                partialPreviewToggle.checked = false;
+            }
+            document.body.classList.toggle('hide-upcoming', !visibilityToggle.checked);
+            updatePartialPreview();
+        });
+
+        partialPreviewToggle.addEventListener('change', () => {
+            if (partialPreviewToggle.checked) {
+                visibilityToggle.checked = false;
+                document.body.classList.add('hide-upcoming');
+            } else {
+                visibilityToggle.checked = true;
+                document.body.classList.toggle('hide-upcoming', !visibilityToggle.checked);
+            }
+            updatePartialPreview();
+        });
+
+        darkModeToggle.addEventListener('change', () => {
+            if (darkModeToggle.checked) {
+                document.body.classList.add('dark-mode');
+                localStorage.setItem('darkMode', 'enabled');
+            } else {
+                document.body.classList.remove('dark-mode');
+                localStorage.setItem('darkMode', 'disabled');
+            }
+        });
+
+        function initialize() {
+            visibilityToggle.checked = true;
+            document.body.classList.remove('hide-upcoming');
+            partialPreviewToggle.checked = false;
+            if (localStorage.getItem('darkMode') === 'enabled') {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.checked = true;
+            }
+            skipUntypableCharacters();
+            skipPunctuation();
+            updateCursor();
+            textDisplay.focus();
+        }
+
+        initialize();
+    </script>
+</body>
+</html>
