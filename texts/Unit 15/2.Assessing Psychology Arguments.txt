@@ -5,3 +5,5 @@ As you read more widely in psychology, you will find that there are many **diffe
 It can even be the case that two researchers **conduct** what looks like the same experiment in two different settings, but get very different **results**.
 This does not mean, necessarily, that either of the researchers did bad work.
 On the **contrary**, different findings from different **contexts** may give us **important** information.
+--korean--
+우리가 심리학에 관해 읽을 때, 어떻게 읽은 내용의 질을 평가할 수 있을까? 우선 우리는 어떤 한 주장의 질을 그것이 사람들에 대해 어떤 결론을 내리는지에 근거하거나, 또는 우리가 사람들에 대한 저자의 믿음에 동의하는지 동의하지 않는지에 근거하여 판단할 수 없다. 두 명의 훌륭한 심리학자가 모두 자신의 결론에 도달한 것에 대해 설득력 있는 주장과 타당한 증거를 제시하면서도 인간 행동의 한 측면에 대해 강하게 의견을 달리하는 것은 충분히 가능하다. 여러분이 심리학에 대해 더 폭넓게 읽어 갈수록 여러분은 연구자들 사이에 많은 의견 차이가 있다는 것을 알게 될 것이다. 심지어 두 명의 연구자가 두 개의 서로 다른 환경에서 겉보기에 같은 실험을 수행했지만, 매우 다른 결과를 얻는 경우도 있을 수 있다. 이것이 반드시 두 연구자 중 어느 한 명이 잘못된 연구를 했다는 것을 의미하지는 않는다. 그와는 반대로, 서로 다른 맥락에서 나온 서로 다른 연구 결과들은 우리에게 중요한 정보를 제공할 수 있을 것이다.

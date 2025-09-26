@@ -10,12 +10,14 @@
             --shadow-color: rgba(0,0,0,0.05); --current-bg: #cfe2ff; --correct-color: #28a745;
             --incorrect-color: #dc3545; --incorrect-bg: #f8d7da; --upcoming-color: #ccc;
             --link-color: #007bff; --link-hover-color: #0056b3; --highlight-color: #eee;
+            --button-darker-bg: rgba(0,0,0,0.05); /* 스타일 추가 */
         }
         body.dark-mode {
             --bg-color: #1a1a1a; --text-color: #e0e0e0; --text-color-light: #aaa; --card-bg: #2c2c2c;
             --shadow-color: rgba(0,0,0,0.2); --current-bg: #3a5378; --correct-color: #28a745;
             --incorrect-color: #ff6b81; --incorrect-bg: #5c2c34; --upcoming-color: #666;
             --link-color: #3498db; --link-hover-color: #2980b9; --highlight-color: #444;
+            --button-darker-bg: rgba(255,255,255,0.1); /* 스타일 추가 */
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); }
@@ -47,31 +49,6 @@
             text-decoration: none; transition: color 0.3s; white-space: nowrap;
         }
         .back-link:hover { color: var(--link-color); }
-
-        .navigation-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .nav-button {
-            font-size: 1rem;
-            font-weight: 500;
-            color: var(--text-color-light);
-            text-decoration: none;
-            transition: all 0.2s;
-            padding: 10px 15px;
-            border-radius: 8px;
-            background-color: var(--card-bg);
-            box-shadow: 0 2px 5px var(--shadow-color);
-        }
-        .nav-button:hover {
-            color: var(--link-color);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px var(--shadow-color);
-        }
 
         #text-display {
             max-height: 40vh;
@@ -108,25 +85,14 @@
             outline: none;
             transition: border-bottom-color 0.3s;
         }
-
-        .blank-input.correct {
-            border-bottom-color: var(--correct-color);
-        }
-
-        .blank-input.incorrect {
-            border-bottom-color: var(--incorrect-color);
-        }
-
-        .blank-input:focus {
-            background-color: var(--highlight-color);
-        }
-
+        .blank-input.correct { border-bottom-color: var(--correct-color); }
+        .blank-input.incorrect { border-bottom-color: var(--incorrect-color); }
+        .blank-input:focus { background-color: var(--highlight-color); }
         .blank-wrapper {
             position: relative;
             display: inline-block;
             vertical-align: baseline;
         }
-
         .preview-span {
             position: absolute;
             top: 0;
@@ -142,22 +108,43 @@
             transition: opacity 0.3s ease;
             pointer-events: none;
         }
-
-        .blank-wrapper.preview-mode .preview-span {
-            opacity: 1;
-        }
+        .blank-wrapper.preview-mode .preview-span { opacity: 1; }
         
-        .controls { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; max-width: 800px; margin: 0 auto; }
-        .info { font-size: 1.2em; color: var(--text-color-light); text-align: left; }
-        .switch-container { display: flex; align-items: center; gap: 20px; }
+        /* ========== ▼▼▼ 스타일 변경/추가 시작 ▼▼▼ ========== */
+        .controls {
+            max-width: 800px; margin: 25px auto 0 auto;
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px 25px;
+            box-shadow: 0 4px 15px var(--shadow-color);
+            display: flex; flex-direction: column; gap: 15px;
+        }
+        .navigation-buttons {
+            display: flex; justify-content: space-between; width: 100%;
+        }
+        .nav-button {
+            font-size: 0.9rem; font-weight: 500; color: var(--text-color);
+            text-decoration: none; transition: all 0.2s; padding: 8px 15px;
+            border-radius: 8px; background-color: var(--button-darker-bg);
+            box-shadow: 0 2px 5px var(--shadow-color);
+        }
+        .nav-button:hover { color: var(--link-color); transform: translateY(-2px); box-shadow: 0 4px 8px var(--shadow-color); }
+
+        .main-controls {
+            display: flex; justify-content: space-between; align-items: center; width: 100%;
+        }
+        .info { font-size: 1.0em; color: var(--text-color-light); text-align: left; }
+        .switch-container { display: flex; align-items: center; gap: 15px; }
         .switch-group { display: flex; align-items: center; }
-        .switch-label { margin-left: 10px; color: var(--text-color-light); font-size: 0.9em; user-select: none; }
-        .switch { position: relative; display: inline-block; width: 44px; height: 24px; }
+        .switch-label { margin-left: 8px; color: var(--text-color-light); font-size: 0.8em; user-select: none; }
+        .switch { position: relative; display: inline-block; width: 38px; height: 20px; }
         .switch input { opacity: 0; width: 0; height: 0; }
-        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 24px; }
-        .slider:before { position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+        .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .4s; border-radius: 20px; }
+        .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--link-color); }
-        input:checked + .slider:before { transform: translateX(20px); }
+        input:checked + .slider:before { transform: translateX(18px); }
+        /* ========== ▲▲▲ 스타일 변경/추가 끝 ▲▲▲ ========== */
+
         @media (max-width: 1400px) { .title-image { display: none; } }
     </style>
 </head>
@@ -173,29 +160,35 @@
             <a href="{{ url_for('select', subdirectory=parent_dir_path) }}" class="back-link">&laquo; 목록으로 (Shift+E)</a>
         </div>
         <div id="text-display"></div>
-        <div class="navigation-buttons">
-            {% if previous_text_path %}
-                <a href="{{ url_for('fill', text_path=previous_text_path) }}" class="nav-button">&laquo; 이전 글</a>
-            {% else %}
-                <span></span>
-            {% endif %}
-            {% if next_text_path %}
-                <a href="{{ url_for('fill', text_path=next_text_path) }}" class="nav-button">다음 글 &raquo;</a>
-            {% endif %}
-        </div>
+        
+        <!-- ========== ▼▼▼ HTML 구조 변경 시작 ▼▼▼ ========== -->
         <div class="controls">
-            <div class="info"><p>빈칸을 채우세요.</p></div>
-            <div class="switch-container">
-                <div class="switch-group">
-                    <label class="switch"><input type="checkbox" id="toggle-preview"><span class="slider"></span></label>
-                    <label for="toggle-preview" class="switch-label">미리보기 (Ctrl+H)</label>
-                </div>
-                <div class="switch-group">
-                    <label class="switch"><input type="checkbox" id="darkModeToggle"><span class="slider"></span></label>
-                    <label for="darkModeToggle" class="switch-label">다크모드</label>
+            <div class="navigation-buttons">
+                {% if previous_text_path %}
+                    <a href="{{ url_for('fill', text_path=previous_text_path) }}" class="nav-button">&laquo; 이전 글</a>
+                {% else %}
+                    <span></span>
+                {% endif %}
+                {% if next_text_path %}
+                    <a href="{{ url_for('fill', text_path=next_text_path) }}" class="nav-button">다음 글 &raquo;</a>
+                {% endif %}
+            </div>
+            <div class="main-controls">
+                <div class="info"><p>빈칸을 채우세요.</p></div>
+                <div class="switch-container">
+                    <div class="switch-group">
+                        <label class="switch"><input type="checkbox" id="toggle-preview"><span class="slider"></span></label>
+                        <label for="toggle-preview" class="switch-label">미리보기 (Ctrl+H)</label>
+                    </div>
+                    <div class="switch-group">
+                        <label class="switch"><input type="checkbox" id="darkModeToggle"><span class="slider"></span></label>
+                        <label for="darkModeToggle" class="switch-label">다크모드</label>
+                    </div>
                 </div>
             </div>
         </div>
+        <!-- ========== ▲▲▲ HTML 구조 변경 끝 ▲▲▲ ========== -->
+
     </div>
     <script>
         const originalTextContent = {{ text_content|tojson }};
@@ -276,7 +269,6 @@
             const isPreviewing = previewToggle.checked;
             const activeInput = blanks[currentBlankIndex];
 
-            // Reset all inputs except the active one, which we'll handle separately.
             blanks.forEach(input => {
                 if (input !== activeInput) {
                     input.parentElement.classList.remove('preview-mode');

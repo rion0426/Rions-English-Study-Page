@@ -104,9 +104,17 @@ def practice(text_path):
 
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read().strip()
+            full_content = f.read().strip()
     except Exception as e:
         abort(500, f"Error reading file: {e}")
+
+    english_content = full_content
+    korean_content = ""
+    if '--korean--' in full_content:
+        parts = full_content.split('--korean--', 1)
+        english_content = parts[0].strip()
+        korean_content = parts[1].strip()
+
     title = os.path.splitext(os.path.basename(text_path))[0]
     
     random_image = get_random_image()
@@ -114,7 +122,8 @@ def practice(text_path):
     return render_template(
         'practice.html', 
         title=title, 
-        text_content=content,
+        english_content=english_content,
+        korean_content=korean_content,
         random_image=random_image,
         next_text_path=next_text_path,
         previous_text_path=previous_text_path,
@@ -161,6 +170,7 @@ def fill(text_path):
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read().strip()
+        content = content.split('--korean--')[0].strip()
     except Exception as e:
         abort(500, f"Error reading file: {e}")
     title = os.path.splitext(os.path.basename(text_path))[0]

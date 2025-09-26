@@ -6,3 +6,5 @@ This **emphasis** upon **direct** personal experience is **philosophically** **e
 The **prescription** would be: if any given word is to be **meaningful**, then it must be **traceable** back to some **sensory** experience.
 Otherwise, the word should be **regarded** as only a **meaningless** sound.
 This experience-tied theory of meaning was **advocated** by the Scottish philosopher David Hume, an **empiricist** who believed that **knowledge** of what exists or is true can only come from **observing** the world.
+--korean--
+'나는 그것을 보면 믿을 것이다.' 이 익숙한 말은 어떻게 직접적인 개인의 경험이 무엇을 믿을지 결정하는, 근본적인 방법은 아니더라도, 확실한 방법으로 흔히 받아들여지고 있는가를 상기시켜 준다. 예를 들어, 수 세기 전에는 맨눈으로 보이지 않을 정도로 작은 유기체가 존재할 수 있다는 것을 믿을 수 없었다. 1600년대 후반에 현미경으로 우리가 이 작은 생물체를 볼 수 있게 된 후에 견해가 바뀌었다. 이러한 직접적인 개인적 경험에 대한 강조는 단어가 어떻게 의미를 도출해야 하는지를 규정하는 데까지 철학적으로 확장될 수 있다. 그 규정은 다음과 같을 것인데, 만약 주어진 어떤 단어가 '의미를 가지려면', 그것은 어떤 감각적 경험으로 되짚어갈 수 있어야 한다는 것이다. 그렇지 않으면, 그 단어는 단순히 무의미한 소리로 여겨져야 한다. 이러한 경험과 연결된 의미 이론은 스코틀랜드의 철학자 David Hume에 의해 주장되었는데, 그는 존재하거나 진실인 것에 관한 지식은 오로지 세상을 관찰하는 데서 얻을 수 있다고 믿는 경험주의자였다.

@@ -3,3 +3,5 @@ Each **replica** or **simulated** self will then be able to perform **functions*
 In **contemporary** culture, the **benefits** and **drawbacks** of **multitasking**, that is, **dividing** consciousness into more than one activity at the same time, are often **discussed** and **debated**.
 In an **immersive** world filled with Al-equipped avatars, the self will have the **unprecedented** ability to **simultaneously** execute multiple tasks with each of its intelligent agents being able to fully **focus** on its **assigned** activity.
 Thus, the development of autonomous agents will help **achieve** the **coexistence** of multitasking and **undivided** attention.
+--korean--
+인간 정신의 정보 패턴이 디지털의 형태로 성공적으로 예를 들어 설명될 때, 많은 (이론적으로 무제한적인) 수의 자율 대리인 복제품을 만들 가능성이 생긴다. 그럴 경우 각 복제품이나 모조 자아는 이전에는 구현된 의식의 직접적인 통제를 요구했던 기능을 수행할 수 있을 것이고, 따라서 한 집단이나 무리의 자아를 만들어 저작 의식의 영향과 기능을 배가시킬 수 있을 것이다. 현대 문화에서, 다중 작업, 즉 의식을 동시에 하나 이상의 활동으로 나누는 것의 이점과 단점이 흔히 논의되고 토론된다. 인공 지능이 장착된 아바타로 가득한 몰입형 세계에서, 자아는 각각의 지능형 대리인이 각자 할당받은 활동에 온전히 집중할 수 있게 되어 다양한 과제를 동시에 실행할 수 있는 전대미문의 능력을 가질 것이다. 따라서 자율 대리인의 개발은 다중 작업과 분산되지 않은 주의력의 공존을 이루는 데 도움이 될 것이다.

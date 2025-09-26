@@ -6,3 +6,5 @@ Humans are **unparalleled** in their **ability** to make sense out of sound.
 In many other branches of our **experience** (e.g., visual perception, touch), we can learn much from studying the behavior and brains of other animals because our experience is not that different from theirs.
 When it comes to language and music, however, our species is **unique**.
 This makes it **difficult** to gain **insight** into language or music as a **cognitive system** by comparing humans to other **organisms**.
+--korean--
+인간이 존재하는 데 있어서 음악과 언어의 중심적인 역할과 둘 다 복잡하고 의미 있는 소리의 연속을 수반한다는 사실은 자연스럽게 두 영역 간의 비교를 유발한다. 그러나 현재 인지 과학의 관점에서 볼 때, 음악과 언어의 관계는 이제 겨우 탐구되기 시작했다. 이 상황은 다양한 분야의 연구자들이 이 여러 학문 분야가 관련된 탐구에 점점 더 끌리면서 빠르게 변화할 준비가 된 것으로 보인다. 이러한 연구의 매력은 쉽게 이해할 수 있다. 인간은 소리에서 의미를 찾아내는 능력에서 견줄 데가 없다. 다른 많은 우리의 경험 분야(예를 들어 시지각, 촉각)에서 우리는 다른 동물의 행동과 뇌를 연구함으로써 많은 것을 배울 수 있는데, 왜냐하면 우리의 경험이 그것들(다른 동물)의 경험과 크게 다르지 않기 때문이다. 그러나 언어와 음악에 관해서 우리 종은 독특하다. 이것은 인간을 다른 유기체와 비교하여 인지 체계로서의 언어나 음악에 대한 통찰력을 얻는 것을 어렵게 만든다.

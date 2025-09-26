@@ -8,3 +8,5 @@ In the eighteenth century, Jean-Jacques Rousseau pointed out that along with int
 His "**solution**” was **isolation** and **separation**, but that is **seldom** possible in a **globalized** world.
 When countries try isolation, as with the cases of North Korea today and Myanmar (formerly Burma) until quite **recently**, it comes at **enormous** economic cost.
 It is not easy for countries to **divorce** the rest of the world.
+--korean--
+상호 의존은 한 사람의 조건이 다른 사람에게 의존하고 그 반대도 마찬가지인 경우이다. 간단히 말해서, 상호 의존은 상호 간의 의존을 의미한다. 그런 상황은 그 자체로 좋은 것도 나쁜 것도 아니며, 더 좋을 수도 더 나쁠 수도 있다. 결혼은 매우 상호 의존적인 관계의 좋은 예이다. 전통적인 기독교 결혼 서약은 두 배우자가 '더 부유해 지든, 더 가난해지든, 더 좋은 일이 생기든, 더 나쁜 일이 생기든' 결혼 생활을 계속할 것을 약속하게 만든다. 국가 간의 상호 의존은 때로는 더 부유하게, 때로는 더 가난하게, 때로는 더 좋게, 때로는 더 나쁘게 되는 것을 의미한다. 18세기에, Jean-Jacques Rousseau는 상호 의존과 함께 마찰과 갈등이 온다고 지적했다. 그의 '해결책'은 고립과 분리였지만, 그것은 세계화된 세상에서는 거의 가능하지 않다. 오늘날의 북한 그리고 꽤 최근까지 미얀마(예전의 버마)의 경우처럼, 국가가 고립을 시도할 때, 그것은 막대한 경제적 대가를 치른다. 국가가 세상의 나머지 국가들과 단절하는 것은 쉽지 않다.

@@ -3,3 +3,5 @@ This is a situation that tends to lead to **continuing** poverty.
 If there is no **surplus** income, there is nothing for the government to **tax**, so governments don't **expand** infrastructure: they don't build roads to **rural** areas so farmers can get their product to market — or water treatment facilities, or electricity grids, or schools.
 If farmers can't get their products to market, they may **eventually** give up and move to the cities where they **strain** whatever support infrastructure does exist.
 One of the best hopes for a society in this kind of **bind** is to **reduce** fertility.
+--korean--
+저소득 사회에서는, 아이가 많으면 사람들은 자신들이 가진 어떤 돈이든 그 아이들을 먹이는 데 쓰는 경향이 있고, 그래서 (아이들을 위한 교육을 포함하여) 미래의 경제 생산성에 투자할 돈이 거의 남아 있지 않다. 이는 지속되는 가난이라는 결과를 초래하는 경향이 있는 상황이다. 잉여 소득이 없다면, 정부가 세금을 부과할 수 있는 것이 아무것도 없어서, 정부는 사회 기반 시설을 확장하지 못한다. 즉, 정부는 농부들이 자신들의 생산품을 시장에 내놓을 수 있도록 하기 위한 시골 지역으로 가는 도로, 정수 처리 시설이나 전력망, 또는 학교를 건설하지 못한다. 자신들의 생산품을 시장에 내놓지 못하면, 농부들은 결국 포기하고 도시로 가서 그곳에서 정말로 실재하는 어떤 지원 사회 기반 시설이든 무리하게 쓸지도 모른다. 이런 종류의 힘든 상황에 있는 사회를 위한 가장 좋은 희망 중 하나는 출산율을 줄이는 것이다.

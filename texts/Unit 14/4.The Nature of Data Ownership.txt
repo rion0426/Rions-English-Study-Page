@@ -5,3 +5,5 @@ This is partly due to the **peculiar** **nature** of data **compared** to other 
 In legal terms, it is **non-rivalrous**: the same data can be in different places and be owned by different people because, when data is **copied** or **migrated** to other platforms, it remains the same.
 In addition, there is a **difference** between data **collected** in a **structured** dataset, which can be **considered** as an intellectual product by law, and **raw data** as **individual**, **unstructured** bits before they are collected and made sense of.
 These raw data are **similar** to facts, for which no copyright and no ownership is legally **applicable**.
+--korean--
+농장 자료는 농부에게 속한다고 명시되어 있는 것이 일반적이다. 때로는 그것이 심지어 계약서에 명시되기도 한다. 그러나, '소유권'은 법적 주장이고 자료 소유권은, 지적 재화로서의 자료 모음에 대한 저작권을 제외하고는 법률에서 다루어지지 않는다. 이는 부분적으로는 소유될 수 있는 다른 재화와 비교되는 자료의 독특한 특성 때문이다. 법적 측면에서 그것은 비경합적인데, 자료는 복사되거나 다른 플랫폼으로 이전되어도 동일하게 유지되기 때문에 동일한 자료가 다른 장소에 있을 수 있고 다른 사람에게 소유될 수 있다. 게다가, 법률에 따라 지적 재화로 간주될 수 있는, 구조화된 자료 모음의 형태로 수집된 자료와, 수집되고 이해되기 전의 개별적이고 구조화되지 않은 부분으로서의 미가공 자료 사이에는 차이가 있다. 이러한 미가공 자료는 사실과 유사한데, 이에 대해서는 어떠한 저작권이나 소유권도 법적으로 적용 가능하지 않다.

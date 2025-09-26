@@ -5,3 +5,5 @@ It is **relatively** easy to design things that work **smoothly** and **harmonio
 But as soon as there is a problem or a **misunderstanding**, the problems **arise** and this is where good design is **essential**.
 Designers need to **focus** their attention on the cases where things go wrong, not just on when things work as **planned**.
 Actually, this is where the most **satisfaction** can arise: when something goes wrong but the machine **highlights** the problems, then the person understands the **issue**, takes the **proper** actions, and the problem is **solved**.
+--korean--
+좋은 디자인은 심리학과 기술에 대한 이해에서 시작된다. 좋은 디자인은 어떤 행동이 가능하고, 어떤 일이 일어나고 있으며, 어떤 일이 막 일어나려는지를 알려 주는, 특히 기계에서 사람으로의 원활한 의사소통을 필요로 한다. 의사소통은 일이 잘못될 때 특히 중요하다. 일이 제대로 진행되는 한 원활하고 조화롭게 작동하는 것을 디자인하는 것은 비교적 쉽다. 하지만 문제나 오해가 생기자마자 문제가 발생하게 되고 이 상황이 좋은 디자인이 필수적인 때이다. 디자이너는 일이 계획대로 진행될 때만 주의를 집중하는 것이 아니라, 일이 잘못되는 경우에도 주의를 집중해야 한다. 실제로 가장 큰 만족감이 생길 수 있는 것은 이러한 상황으로, 무언가 잘못되지만, 기계가 그 문제점을 강조하고, 그런 후 사람이 그 문제를 이해하고 적절한 조치를 하여 문제가 해결될 때이다.

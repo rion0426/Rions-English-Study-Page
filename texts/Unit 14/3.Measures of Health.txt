@@ -6,3 +6,5 @@ While both are used to **screen** for **potential** risk, they aren't **diagnost
 Instead of using weight or measures like BMI to **define** well-being, an **alternative** "health at every size“ approach focuses on **sustainable** health-promoting behavior **regardless** of body size.
 **Proponents** argue a weight-neutral approach is healthier because it **avoids** the potentially **harmful** effects of repeated dieting, such as a higher risk of early death and psychological **distress**.
 **Ultimately**, nutrition and health are **socioeconomic** issues that require **understanding** and **empathy**.
+--korean--
+'건강한'과 '과체중'에는 여러 가지 측정 기준이 있다. BMI(체질량 지수)는 건강 전문가들이 널리 사용하며 다양한 질병 및 만성 질환과 높은 상관관계를 가진다. 하지만 BMI는 신체 내 지방이나 근육의 양, 뼈 무게, 또는 문화적 요인, 나이, 그리고 성별(여성은 더 많은 지방을 가지는 경향이 있다)을 반영하지 않는다. 허리둘레는 일반적으로 사용되는 또 다른 측정 기준인데, 남성 40인치, 여성 35인치가 넘는 과도한 복부 지방은 비만 관련 질환 발병 위험을 증가시키기 때문이다. 비록 둘다 잠재적 위험을 검진하는 데 사용되지만, 진단 도구는 아니다. 체중이나 BMI와 같은 측정 기준을 사용하여 건강을 정의하는 대신, 대안적인 '모든 체격에서의 건강' 접근 방식은 체격과 관계없이 지속 가능한 건강 증진 행동에 초점을 맞춘다. 이것을 옹호하는 사람들은 체중 중립적인 접근 방식이 더 높은 조기 사망 및 심리적 고통의 위험과 같은 반복적인 다이어트의 잠재적으로 해로운 영향을 피하기 때문에 더 건강하다고 주장한다. 궁극적으로, 영양과 건강은 이해와 공감이 있어야 하는 사회 경제적 문제이다.
