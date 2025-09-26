@@ -246,14 +246,27 @@
                 return;
             }
 
+            // ★★★★★ 변경점 시작 ★★★★★
+            // 텍스트 영역의 보이는 범위를 가져옴
+            const containerRect = textDisplay.getBoundingClientRect();
+            // 대상 글자가 텍스트 영역의 보이는 범위 안에 있는지 확인
+            const isTargetVisible = rect.top >= containerRect.top && rect.bottom <= containerRect.bottom;
+
+            // 보이는 범위 밖에 있으면 커서를 숨기고 함수 종료
+            if (!isTargetVisible) {
+                cursor.style.opacity = '0';
+                return;
+            }
+            // ★★★★★ 변경점 끝 ★★★★★
+
             const cursorHeight = rect.height * 0.8;
             const cursorTop = rect.top + (rect.height - cursorHeight) / 2;
 
             cursor.style.height = `${cursorHeight}px`;
             cursor.style.transform = `translate(${rect.left}px, ${cursorTop}px)`;
+            // 여기까지 왔다면 커서는 보이는 게 맞으므로 opacity를 1로 설정
             cursor.style.opacity = '1';
 
-            // ★★★★★ 변경점: scrollIntoView 로직을 이 함수에서 제거 ★★★★★
             updatePartialPreview();
         }
 
@@ -302,7 +315,7 @@
             if (e.metaKey || e.altKey) return;
 
             const typedChar = e.key;
-            let needsScrollIntoView = false; // 스크롤이 필요한지 여부를 추적하는 플래그
+            let needsScrollIntoView = false;
 
             if (typedChar === 'Backspace') {
                 e.preventDefault();
@@ -338,9 +351,8 @@
                 needsScrollIntoView = true;
             }
             
-            updateCursor(); // 먼저 커서 위치를 업데이트
+            updateCursor();
 
-            // ★★★★★ 변경점: 키 입력으로 커서 위치가 변경되었을 때만 scrollIntoView 호출 ★★★★★
             if (needsScrollIntoView && currentIndex < characters.length) {
                 characters[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
