@@ -300,18 +300,15 @@
         });
 
         document.addEventListener('keydown', (e) => {
-            // Priority shortcuts
+            clearTimeout(scrollTimeout);
+
             if (e.shiftKey) {
-                if (e.key.toLowerCase() === 'e') {
-                    e.preventDefault();
-                    if (parentListUrl) window.location.href = parentListUrl;
-                    return;
-                }
+                if (e.key.toLowerCase() === 'e') { e.preventDefault(); if (parentListUrl) window.location.href = parentListUrl; return; }
                 if (e.key.toLowerCase() === 'k') {
                     e.preventDefault();
                     if (koreanText) {
                         document.body.classList.toggle('korean-visible');
-                        setTimeout(() => updateCursor(), 500);
+                        setTimeout(() => updateCursor(true), 500);
                     }
                     return;
                 }
@@ -327,19 +324,31 @@
 
             if (e.metaKey || e.altKey) return;
 
-            // Typing logic
             const typedChar = e.key;
             let needsScrollIntoView = false;
 
             if (typedChar === 'Backspace') {
                 e.preventDefault();
                 if (currentIndex > 0) {
-                    currentIndex--;
-                    characters[currentIndex].classList.remove('correct', 'incorrect');
-                    while (currentIndex > 0 && isSkippable(currentIndex)) {
-                         currentIndex--;
-                         characters[currentIndex].classList.remove('correct', 'incorrect');
-                    }
+                    // ========== ▼▼▼ 버그 수정 시작 ▼▼▼ ==========
+                    const resetCharState = (index) => {
+                        const span = characters[index];
+                        // 1. 글자 상태를 바꾸기 전, transition을 잠시 비활성화
+                        span.style.transition = 'none';
+                        // 2. 클래스와 내용을 원래대로 복원
+                        span.classList.remove('correct', 'incorrect');
+                        span.innerText = englishText[index];
+                        // 3. 브라우저가 화면을 그린 후, 다시 transition을 활성화
+                        requestAnimationFrame(() => {
+                            span.style.transition = '';
+                        });
+                    };
+
+                    do {
+                        currentIndex--;
+                        resetCharState(currentIndex);
+                    } while (currentIndex > 0 && isSkippable(currentIndex - 1));
+                    // ========== ▲▲▲ 버그 수정 끝 ▲▲▲ ==========
                 }
                 needsScrollIntoView = true;
             } else if (typedChar.length === 1) {
@@ -378,14 +387,21 @@
         });
 
         visibilityToggle.addEventListener('change', () => {
+            if (visibilityToggle.checked) {
+                partialPreviewToggle.checked = false;
+            }
             document.body.classList.toggle('hide-upcoming', !visibilityToggle.checked);
-            if (visibilityToggle.checked) partialPreviewToggle.checked = false;
             updatePartialPreview();
         });
 
         partialPreviewToggle.addEventListener('change', () => {
-            document.body.classList.toggle('hide-upcoming', partialPreviewToggle.checked);
-            if (partialPreviewToggle.checked) visibilityToggle.checked = false;
+            if (partialPreviewToggle.checked) {
+                visibilityToggle.checked = false;
+                document.body.classList.add('hide-upcoming');
+            } else {
+                visibilityToggle.checked = true;
+                document.body.classList.remove('hide-upcoming');
+            }
             updatePartialPreview();
         });
 
@@ -407,8 +423,7 @@
             skipPunctuation();
 
             cursor.style.transition = 'none';
-            updateCursor();
-            cursor.style.opacity = '0';
+            updateCursor(false);
 
             setTimeout(() => {
                 cursor.style.transition = 'transform 0.1s ease-out, opacity 0.5s ease';
@@ -421,4 +436,4 @@
         initialize();
     </script>
 </body>
-</html>
+</html>```
