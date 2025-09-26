@@ -10,14 +10,14 @@
             --shadow-color: rgba(0,0,0,0.05); --current-bg: #cfe2ff; --correct-color: #28a745;
             --incorrect-color: #dc3545; --incorrect-bg: #f8d7da; --upcoming-color: #ccc;
             --link-color: #007bff; --link-hover-color: #0056b3; --highlight-color: #eee;
-            --button-darker-bg: rgba(0,0,0,0.05); /* 스타일 추가 */
+            --button-darker-bg: rgba(0,0,0,0.05);
         }
         body.dark-mode {
             --bg-color: #1a1a1a; --text-color: #e0e0e0; --text-color-light: #aaa; --card-bg: #2c2c2c;
             --shadow-color: rgba(0,0,0,0.2); --current-bg: #3a5378; --correct-color: #28a745;
             --incorrect-color: #ff6b81; --incorrect-bg: #5c2c34; --upcoming-color: #666;
             --link-color: #3498db; --link-hover-color: #2980b9; --highlight-color: #444;
-            --button-darker-bg: rgba(255,255,255,0.1); /* 스타일 추가 */
+            --button-darker-bg: rgba(255,255,255,0.1);
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); }
@@ -110,7 +110,6 @@
         }
         .blank-wrapper.preview-mode .preview-span { opacity: 1; }
         
-        /* ========== ▼▼▼ 스타일 변경/추가 시작 ▼▼▼ ========== */
         .controls {
             max-width: 800px; margin: 25px auto 0 auto;
             background-color: var(--card-bg);
@@ -143,7 +142,6 @@
         .slider:before { position: absolute; content: ""; height: 14px; width: 14px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
         input:checked + .slider { background-color: var(--link-color); }
         input:checked + .slider:before { transform: translateX(18px); }
-        /* ========== ▲▲▲ 스타일 변경/추가 끝 ▲▲▲ ========== */
 
         @media (max-width: 1400px) { .title-image { display: none; } }
     </style>
@@ -161,7 +159,6 @@
         </div>
         <div id="text-display"></div>
         
-        <!-- ========== ▼▼▼ HTML 구조 변경 시작 ▼▼▼ ========== -->
         <div class="controls">
             <div class="navigation-buttons">
                 {% if previous_text_path %}
@@ -181,14 +178,16 @@
                         <label for="toggle-preview" class="switch-label">미리보기 (Ctrl+H)</label>
                     </div>
                     <div class="switch-group">
+                        <label class="switch"><input type="checkbox" id="toggle-first-letter"><span class="slider"></span></label>
+                        <label for="toggle-first-letter" class="switch-label">앞글자만 보기 (Ctrl+I)</label>
+                    </div>
+                    <div class="switch-group">
                         <label class="switch"><input type="checkbox" id="darkModeToggle"><span class="slider"></span></label>
                         <label for="darkModeToggle" class="switch-label">다크모드</label>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- ========== ▲▲▲ HTML 구조 변경 끝 ▲▲▲ ========== -->
-
     </div>
     <script>
         const originalTextContent = {{ text_content|tojson }};
@@ -197,6 +196,7 @@
         const nextTextUrl = {{ url_for('fill', text_path=next_text_path)|tojson if next_text_path else 'null' }};
         const textDisplay = document.getElementById('text-display');
         const previewToggle = document.getElementById('toggle-preview');
+        const firstLetterToggle = document.getElementById('toggle-first-letter');
         const darkModeToggle = document.getElementById('darkModeToggle');
 
         let blanks = [];
@@ -209,30 +209,25 @@
             parts.forEach((part, index) => {
                 if (part.startsWith('**') && part.endsWith('**')) {
                     const word = part.slice(2, -2);
-
                     const wrapper = document.createElement('span');
                     wrapper.classList.add('blank-wrapper');
-
                     const input = document.createElement('input');
                     input.type = 'text';
                     input.classList.add('blank-input');
                     input.dataset.correct = word;
                     input.style.width = (word.length * 1.1) + 'ch';
-                    
                     const previewSpan = document.createElement('span');
                     previewSpan.classList.add('preview-span');
                     previewSpan.innerText = word;
-
                     input.addEventListener('input', checkAnswer);
                     input.addEventListener('focus', (e) => {
                         currentBlankIndex = blanks.indexOf(e.target);
                         updatePreview();
                     });
                     input.addEventListener('blur', (e) => {
-                        if (e.target.disabled) return; // Ignore blur from disabling
+                        if (e.target.disabled) return;
                         setTimeout(updatePreview, 0);
                     });
-
                     wrapper.appendChild(input);
                     wrapper.appendChild(previewSpan);
                     textDisplay.appendChild(wrapper);
@@ -266,9 +261,11 @@
         }
 
         function updatePreview() {
-            const isPreviewing = previewToggle.checked;
+            const isFullPreviewing = previewToggle.checked;
+            const isFirstLetterPreviewing = firstLetterToggle.checked;
             const activeInput = blanks[currentBlankIndex];
 
+            // 모든 비활성 빈칸의 상태를 먼저 초기화
             blanks.forEach(input => {
                 if (input !== activeInput) {
                     input.parentElement.classList.remove('preview-mode');
@@ -276,26 +273,46 @@
                 }
             });
 
-            if (isPreviewing && activeInput) {
+            // 현재 활성화된(포커스된) 빈칸의 상태를 처리
+            if ((isFullPreviewing || isFirstLetterPreviewing) && activeInput) {
+                const previewSpan = activeInput.nextElementSibling;
+                const word = activeInput.dataset.correct;
+                
+                if (isFirstLetterPreviewing) {
+                    previewSpan.innerText = word.charAt(0);
+                } else {
+                    previewSpan.innerText = word;
+                }
                 activeInput.parentElement.classList.add('preview-mode');
                 activeInput.disabled = true;
             } else if (activeInput) {
+                // ========== ▼▼▼ 버그 수정 ▼▼▼ ==========
+                // 미리보기가 꺼질 때: 클래스 제거와 비활성화 해제, 포커스만 처리.
+                // innerText를 여기서 바꾸면 애니메이션 중에 내용이 바뀌어 번쩍임.
                 activeInput.parentElement.classList.remove('preview-mode');
                 activeInput.disabled = false;
                 activeInput.focus();
+                // ========== ▲▲▲ 버그 수정 ▲▲▲ ==========
             }
         }
+        
+        previewToggle.addEventListener('change', () => {
+            if (previewToggle.checked) {
+                firstLetterToggle.checked = false;
+            }
+            updatePreview();
+        });
 
-        previewToggle.addEventListener('change', updatePreview);
+        firstLetterToggle.addEventListener('change', () => {
+            if (firstLetterToggle.checked) {
+                previewToggle.checked = false;
+            }
+            updatePreview();
+        });
 
         darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('darkMode', 'disabled');
-            }
+            document.body.classList.toggle('dark-mode', darkModeToggle.checked);
+            localStorage.setItem('darkMode', darkModeToggle.checked ? 'enabled' : 'disabled');
         });
         
         document.addEventListener('keydown', (e) => {
@@ -315,24 +332,11 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key.toLowerCase() === 'h') {
-                e.preventDefault();
-                previewToggle.click();
-                return;
-            }
-
-            if (e.ctrlKey && e.key === 'ArrowRight') {
-                e.preventDefault();
-                if (nextTextUrl) {
-                    window.location.href = nextTextUrl;
-                }
-                return;
-            } else if (e.ctrlKey && e.key === 'ArrowLeft') {
-                e.preventDefault();
-                if (previousTextUrl) {
-                    window.location.href = previousTextUrl;
-                }
-                return;
+            if (e.ctrlKey) {
+                if (e.key.toLowerCase() === 'h') { e.preventDefault(); previewToggle.click(); return; }
+                if (e.key.toLowerCase() === 'i') { e.preventDefault(); firstLetterToggle.click(); return; }
+                if (e.key === 'ArrowRight' && nextTextUrl) { e.preventDefault(); window.location.href = nextTextUrl; return; }
+                if (e.key === 'ArrowLeft' && previousTextUrl) { e.preventDefault(); window.location.href = previousTextUrl; return; }
             }
 
             if (e.shiftKey && e.key === 'ArrowRight') {
