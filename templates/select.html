@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rion's English Study Page</title>
-    
     <style>
         :root {
             --bg-color: #f7f9fc; --text-color: #333; --text-color-light: #555; --card-bg: #fff;
@@ -19,8 +18,8 @@
 
         /* --- 애니메이션 --- */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         body {
@@ -36,7 +35,8 @@
         .site-title {
             font-size: 2.2em;
             font-weight: 600;
-            margin: 10px 0 20px 0;
+            margin: 0; /* Reset margin */
+            line-height: 1; /* Adjust for vertical alignment */
             text-align: center;
             opacity: 0; animation: fadeIn 0.5s ease-out forwards;
         }
@@ -172,11 +172,76 @@
         .typing-button:hover { background-color: var(--link-hover-bg); }
         .fill-button { background-color: #28a745; }
         .fill-button:hover { background-color: #218838; }
+
+        .title-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            position: relative;
+            margin: 10px 0 20px 0;
+        }
+        .profile-container {
+            position: relative;
+        }
+        .profile-pic {
+            width: 60px; /* Increased size */
+            height: 60px; /* Increased size */
+            border-radius: 50%;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            object-fit: cover;
+            opacity: 0; /* Initial state for animation */
+            animation: fadeIn 0.5s ease-out 0.8s forwards; /* Added animation */
+        }
+        .profile-pic:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        .profile-pic:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 15px var(--shadow-color);
+        }
+        .profile-info {
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            top: 50%;
+            left: calc(100% + 15px);
+            transform: translateY(-50%) translateX(-10px);
+            background-color: transparent; /* Changed */
+            color: var(--text-color);
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: none; /* Changed */
+            font-size: 0.9em;
+            text-align: left; /* Changed from center to left for better label alignment */
+            white-space: nowrap;
+            z-index: 10;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+        }
+        .profile-info .bold {
+            font-weight: 600;
+        }
+        .profile-info.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(-50%) translateX(0);
+        }
     </style>
 </head>
 <body>
     <!-- 최상단 제목 -->
-    <h2 class="site-title">Rion's English Study Page</h2>
+    <div class="title-wrapper">
+        <h2 class="site-title">Rion's English Study Page</h2>
+        <div class="profile-container">
+            <img src="{{ url_for('static', filename='img/rion.png') }}" alt="Profile" class="profile-pic">
+            <div class="profile-info">
+                <span class="bold">Developed by 김리온(1-6), Gemini</span><br>
+                <span class="bold">Donate:</span> 7777-02-8261429 카카오뱅크
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <!-- 왼쪽 이미지 -->
@@ -255,6 +320,22 @@
                 localStorage.setItem('darkMode', 'disabled');
             }
         });
+
+        const profilePic = document.querySelector('.profile-pic');
+        const profileInfo = document.querySelector('.profile-info');
+
+        if (profilePic && profileInfo) {
+            profilePic.addEventListener('click', (event) => {
+                event.stopPropagation();
+                profileInfo.classList.toggle('show');
+            });
+
+            document.addEventListener('click', (event) => {
+                if (!profileInfo.contains(event.target) && !profilePic.contains(event.target)) {
+                    profileInfo.classList.remove('show');
+                }
+            });
+        }
     </script>
 </body>
 </html>

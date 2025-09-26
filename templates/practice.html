@@ -7,13 +7,13 @@
     <style>
         :root {
             --bg-color: #f7f9fc; --text-color: #333; --text-color-light: #555; --card-bg: #fff;
-            --shadow-color: rgba(0,0,0,0.05); --current-bg: #cfe2ff; --correct-color: #28a745;
+            --shadow-color: rgba(0,0,0,0.05); --current-bg: #cfe2ff; --correct-color: #333;
             --incorrect-color: #dc3545; --incorrect-bg: #f8d7da; --upcoming-color: #ccc;
             --link-color: #007bff; --link-hover-color: #0056b3;
         }
         body.dark-mode {
             --bg-color: #1a1a1a; --text-color: #e0e0e0; --text-color-light: #aaa; --card-bg: #2c2c2c;
-            --shadow-color: rgba(0,0,0,0.2); --current-bg: #3a5378; --correct-color: #28a745;
+            --shadow-color: rgba(0,0,0,0.2); --current-bg: #3a5378; --correct-color: #fff;
             --incorrect-color: #ff6b81; --incorrect-bg: #5c2c34; --upcoming-color: #666;
             --link-color: #3498db; --link-hover-color: #2980b9;
         }
@@ -90,26 +90,33 @@
         }
         #text-display span.correct { color: var(--correct-color); }
 
+        #cursor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 2px;
+            background-color: var(--link-color);
+            border-radius: 1px;
+            transition: transform 0.1s ease-out, opacity 1.0s ease;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 5;
+        }
+
         #text-display span.current {
-            background-color: var(--current-bg);
-            border-radius: 3px;
-            padding: 0.1em 0.15em;
-            margin: -0.1em -0.15em;
+            /* This is no longer used for the cursor */
         }
         #text-display span.incorrect {
             color: var(--incorrect-color);
         }
 
         /* 변경된 한 줄: partial-preview-active인 경우는 숨기지 않도록 예외를 추가 */
-        body.hide-upcoming #text-display span:not(.correct):not(.incorrect):not(.partial-preview-active) { color: transparent; transition: color 0s; }
+        body.hide-upcoming #text-display span:not(.correct):not(.incorrect):not(.partial-preview-active) { color: transparent; transition: color 0.3s ease; }
 
         body.hide-upcoming #text-display span.partial-preview-active {
             color: var(--upcoming-color);
         }
-        body.hide-upcoming #text-display span.current.partial-preview-active {
-            color: var(--text-color);
-        }
-        body.hide-upcoming #text-display span.current:not(.correct):not(.incorrect):not(.partial-preview-active) { color: transparent; }
+        /* The rule for span.current was here, but is no longer needed. */
         .controls { display: flex; justify-content: space-between; align-items: center; padding: 0 10px; max-width: 800px; margin: 0 auto; }
         .info { font-size: 1.2em; color: var(--text-color-light); text-align: left; }
         .switch-container { display: flex; align-items: center; gap: 20px; }
@@ -164,6 +171,7 @@
             </div>
         </div>
     </div>
+    <div id="cursor"></div>
     <script>
         // 서버에서 전달된 텍스트에서 ** 표식은 무시 (빈칸 채우기 표식 제거)
         const originalTextContent = {{ text_content|tojson }}.replace(/\*\*/g, '');
@@ -174,6 +182,7 @@
         const visibilityToggle = document.getElementById('toggle-visibility');
         const partialPreviewToggle = document.getElementById('toggle-partial-preview');
         const darkModeToggle = document.getElementById('darkModeToggle');
+        const cursor = document.getElementById('cursor');
         let currentIndex = 0;
         const punctuationToSkip = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~\n\t';
 
@@ -240,13 +249,32 @@
         }
 
         function updateCursor() {
-            characters.forEach((span, index) => {
-                span.classList.remove('current');
-                if (index === currentIndex) span.classList.add('current');
-            });
-            const currentSpan = document.querySelector('#text-display .current');
-            if (currentSpan) {
-                currentSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            let targetSpan = characters[currentIndex];
+            let rect;
+
+            if (targetSpan) {
+                rect = targetSpan.getBoundingClientRect();
+            } else if (characters.length > 0) {
+                const lastChar = characters[characters.length - 1];
+                rect = lastChar.getBoundingClientRect();
+                // Create a new DOMRect for the position after the last character
+                rect = new DOMRect(rect.right, rect.top, 0, rect.height);
+            } else {
+                cursor.style.opacity = '0'; // No text, no cursor
+                return;
+            }
+
+            const cursorHeight = rect.height * 0.8; // 80% of the line height
+            const cursorTop = rect.top + (rect.height - cursorHeight) / 2;
+
+            cursor.style.height = `${cursorHeight}px`;
+            // Use translate for smooth animation
+            cursor.style.transform = `translate(${rect.left}px, ${cursorTop}px)`;
+            cursor.style.opacity = '1';
+
+            // The original scrollIntoView is still good for keeping the line in view
+            if (targetSpan) {
+                targetSpan.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
             updatePartialPreview();
         }
@@ -338,7 +366,7 @@
             updateCursor();
             if (currentIndex >= characters.length) {
                 document.querySelector('.info p').innerText = '완료!';
-                if (characters.length > 0) characters[characters.length - 1].classList.remove('current');
+                cursor.style.opacity = '0';
             }
         });
 
@@ -382,7 +410,18 @@
             }
             skipUntypableCharacters();
             skipPunctuation();
+
+            // Instantly move the cursor to the starting position without showing it.
+            cursor.style.transition = 'none';
             updateCursor();
+            cursor.style.opacity = '0';
+
+            // Fade in after a delay.
+            setTimeout(() => {
+                cursor.style.transition = 'transform 0.1s ease-out, opacity 0.5s ease';
+                cursor.style.opacity = '1';
+            }, 1200);
+
             textDisplay.focus();
         }
 
