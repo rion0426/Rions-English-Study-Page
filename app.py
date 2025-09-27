@@ -137,7 +137,7 @@ def fill(text_path):
     if not file_path.startswith(base_path) or not os.path.isfile(file_path):
         abort(404, "File not found")
 
-    # --- Start: Find previous/next text logic ---
+    # --- Start: Find previous/next text logic --
     next_text_path = None
     previous_text_path = None
     try:
