@@ -31,27 +31,12 @@
             overflow-x: hidden;
         }
         .main-wrapper {
-<<<<<<< HEAD
             display: flex; align-items: flex-start; gap: 20px;
             width: 100%; justify-content: center;
             transition: transform 0.5s ease-in-out;
         }
         body.korean-visible .main-wrapper {
             transform: translateX(-15%);
-=======
-            display: flex; align-items: flex-start;
-            gap: clamp(16px, 4vw, 48px);
-            width: 100%;
-            justify-content: flex-start;
-            padding: clamp(16px, 3vw, 48px) clamp(16px, 4vw, 48px) clamp(24px, 4vw, 64px) clamp(32px, 7vw, 128px);
-            padding-right: clamp(24px, 6vw, 96px);
-            margin: 0;
-            transition: transform 0.5s ease-in-out;
-        }
-        body.korean-visible .main-wrapper {
-            transform: none;
-            padding-right: clamp(260px, 24vw, 360px);
->>>>>>> 4aa5ba2d40ecbff73f928ca359f4fa9244bf17a4
         }
         .container {
             width: 90%; max-width: 800px; text-align: center;
@@ -61,11 +46,7 @@
         #korean-widget {
             position: fixed; top: 50%; right: 2%;
             transform: translateY(-50%) translateX(120%);
-<<<<<<< HEAD
             width: 25%; max-width: 350px; max-height: 80vh;
-=======
-            width: clamp(240px, 22vw, 320px); max-height: 80vh;
->>>>>>> 4aa5ba2d40ecbff73f928ca359f4fa9244bf17a4
             background-color: var(--card-bg);
             border-radius: 12px; box-shadow: 0 4px 20px var(--shadow-color);
             padding: 30px; overflow-y: auto; font-size: 1.1em;
@@ -151,75 +132,8 @@
 
         @media (max-width: 1400px) { .title-image { display: none; } }
         @media (max-width: 1200px) {
-<<<<<<< HEAD
             body.korean-visible .main-wrapper { transform: translateX(0); }
             #korean-widget { display: none; }
-=======
-            .main-wrapper {
-                padding: 24px;
-                padding-right: 24px;
-            }
-            body.korean-visible .main-wrapper { padding-right: 24px; }
-            #korean-widget {
-                top: auto;
-                bottom: 16px;
-                right: 50%;
-                left: 50%;
-                transform: translate(-50%, 120%);
-                width: calc(100% - 40px);
-                max-width: 520px;
-                max-height: 55vh;
-            }
-            body.korean-visible #korean-widget {
-                opacity: 1;
-                visibility: visible;
-                transform: translate(-50%, 0);
-            }
-        }
-        @media (max-width: 1024px) {
-            .main-wrapper {
-                flex-direction: column;
-                max-width: 100%;
-                padding: 20px;
-                padding-right: 20px;
-            }
-            body.korean-visible .main-wrapper { padding-right: 20px; }
-            .container {
-                margin: 0;
-                max-width: 100%;
-            }
-            .controls {
-                padding: 18px;
-            }
-            .stats-row { gap: 8px; }
-            .session-actions { margin-left: auto; }
-        }
-        @media (max-width: 768px) {
-            body { padding: 10px; }
-            .container { width: 100%; }
-            #text-display {
-                font-size: 1.2em;
-                padding: 20px;
-                max-height: none;
-            }
-            body.korean-visible .main-wrapper { padding-right: 10px; }
-            .title-wrapper { justify-content: center; }
-            .controls { gap: 18px; }
-            .stats-row {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            .switch-container { width: 100%; justify-content: space-between; }
-            .session-actions {
-                width: 100%;
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .action-button {
-                width: 100%;
-                text-align: center;
-            }
->>>>>>> 4aa5ba2d40ecbff73f928ca359f4fa9244bf17a4
         }
     </style>
 </head>
@@ -288,19 +202,7 @@
         let currentIndex = 0;
         const punctuationToSkip = '!"#$%&\\\'()*+,-./:;<=>?@[\]^_`{|}~\n\t';
         let characters = [];
-<<<<<<< HEAD
         let koreanSentences = [];
-=======
-        let typedCount = 0;
-        let correctCount = 0;
-        let startTime = null;
-        let endTime = null;
-        let statsIntervalId = null;
-        let englishSegments = [];
-        let koreanSegments = [];
-        let koreanSentenceElements = [];
-        let programmaticScroll = false;
->>>>>>> 4aa5ba2d40ecbff73f928ca359f4fa9244bf17a4
 
         /**
          * 텍스트 내에서 인용 부호를 고려하여 문장 수를 정확하게 계산하는 함수.
@@ -321,114 +223,7 @@
                     sentenceCount++;
                 }
             }
-<<<<<<< HEAD
             return sentenceCount;
-=======
-
-            return boundaries.filter(segment => segment.end > segment.start);
-        }
-
-        function buildLineSegments(text) {
-            const segments = [];
-            if (!text) return segments;
-
-            const length = text.length;
-            let start = 0;
-            let index = 0;
-
-            const addSegment = (segmentStart, segmentEnd) => {
-                if (segmentEnd <= segmentStart) return;
-                const snippet = text.slice(segmentStart, segmentEnd);
-                if (snippet.trim().length === 0) return;
-                segments.push({ start: segmentStart, end: segmentEnd });
-            };
-
-            while (index <= length) {
-                if (index === length || text[index] === '\n') {
-                    addSegment(start, index);
-                    index++;
-                    while (index < length && text[index] === '\n') {
-                        index++;
-                    }
-                    start = index;
-                    continue;
-                }
-                index++;
-            }
-
-            if (!segments.length && length > 0) {
-                segments.push({ start: 0, end: length });
-            }
-
-            return segments;
-        }
-
-        function prepareKoreanWidget() {
-            koreanSentenceElements = [];
-            koreanSegments = [];
-
-            if (!koreanText) {
-                koreanWidget.innerHTML = '';
-                return;
-            }
-
-            const manualSegments = koreanText
-                .split(/\n+/)
-                .map(segment => segment.trim())
-                .filter(Boolean);
-
-            if (manualSegments.length > 1) {
-                koreanSegments = manualSegments;
-                const html = manualSegments.map((segment, idx) => {
-                    const safe = escapeHtml(segment);
-                    return `<span class="k-sentence" data-sentence-index="${idx}">${safe}</span>`;
-                }).join('<br>');
-                koreanWidget.innerHTML = html;
-                koreanSentenceElements = Array.from(koreanWidget.querySelectorAll('.k-sentence'));
-                return;
-            }
-
-            const fallback = buildSentenceBoundaries(koreanText);
-            if (!fallback.length) {
-                koreanWidget.innerHTML = escapeHtml(koreanText).replace(/\n/g, '<br>');
-                return;
-            }
-
-            koreanSegments = fallback.map(({ start, end }) => koreanText.slice(start, end));
-            const rendered = fallback.map(({ start, end }, idx) => {
-                const raw = koreanText.slice(start, end);
-                const safe = escapeHtml(raw).replace(/\n/g, '<br>');
-                return `<span class="k-sentence" data-sentence-index="${idx}">${safe}</span>`;
-            }).join('');
-
-            koreanWidget.innerHTML = rendered;
-            koreanSentenceElements = Array.from(koreanWidget.querySelectorAll('.k-sentence'));
-        }
-
-        function updateKoreanHighlight() {
-            if (!koreanSentenceElements.length || !englishSegments.length) return;
-
-            let sentenceIndex = englishSegments.findIndex(segment => currentIndex >= segment.start && currentIndex < segment.end);
-            if (sentenceIndex === -1) {
-                sentenceIndex = englishSegments.length - 1;
-            }
-
-            let targetIndex;
-            if (englishSegments.length === koreanSentenceElements.length) {
-                targetIndex = sentenceIndex;
-            } else if (englishSegments.length > 1) {
-                const ratio = sentenceIndex / (englishSegments.length - 1);
-                targetIndex = Math.round(ratio * (koreanSentenceElements.length - 1));
-            } else {
-                targetIndex = 0;
-            }
-
-            targetIndex = Math.max(0, Math.min(targetIndex, koreanSentenceElements.length - 1));
-
-            koreanSentenceElements.forEach((el, idx) => {
-                el.classList.toggle('active', idx === targetIndex);
-            });
->>>>>>> 4aa5ba2d40ecbff73f928ca359f4fa9244bf17a4
         }
 
         function setup() {
@@ -448,7 +243,6 @@
                 textDisplay.appendChild(span);
                 return span;
             });
-<<<<<<< HEAD
         }
 
         function updateKoreanHighlight() {
@@ -465,14 +259,6 @@
                     span.classList.remove('highlight');
                 }
             });
-=======
-            englishSegments = buildLineSegments(englishText);
-            if (!englishSegments.length) {
-                englishSegments = buildSentenceBoundaries(englishText);
-            }
-            prepareKoreanWidget();
-            updateKoreanHighlight();
->>>>>>> 4aa5ba2d40ecbff73f928ca359f4fa9244bf17a4
         }
 
         function skipUntypableCharacters() {
@@ -543,37 +329,6 @@
             updatePartialPreview();
         }
 
-        function ensureCurrentVisible() {
-            if (currentIndex >= characters.length) return;
-            const span = characters[currentIndex];
-            if (!span) return;
-
-            const margin = 48;
-            const containerTop = textDisplay.scrollTop;
-            const containerHeight = textDisplay.clientHeight;
-            const containerBottom = containerTop + containerHeight;
-
-            const spanTop = span.offsetTop;
-            const spanHeight = span.offsetHeight || parseFloat(getComputedStyle(span).lineHeight) || 24;
-            const spanBottom = spanTop + spanHeight;
-
-            let nextScrollTop = null;
-            if (spanTop < containerTop + margin) {
-                nextScrollTop = Math.max(0, spanTop - margin);
-            } else if (spanBottom > containerBottom - margin) {
-                nextScrollTop = spanBottom - containerHeight + margin;
-            }
-
-            if (nextScrollTop !== null) {
-                programmaticScroll = true;
-                textDisplay.scrollTo({ top: nextScrollTop, behavior: 'smooth' });
-                setTimeout(() => {
-                    programmaticScroll = false;
-                    updateCursor(true);
-                }, 250);
-            }
-        }
-
         function isSkippable(index) {
             if (index < 0 || index >= englishText.length) return false;
             const char = englishText[index];
@@ -586,150 +341,12 @@
                 characters[currentIndex].classList.add('correct');
                 currentIndex++;
             }
-<<<<<<< HEAD
-=======
-            updateKoreanHighlight();
-        }
-
-        function resetCharState(index) {
-            const span = characters[index];
-            if (!span) return;
-            span.style.transition = 'none';
-            span.classList.remove('correct', 'incorrect', 'partial-preview-active');
-            span.classList.remove('hint-reveal');
-            span.removeAttribute('data-typed-char');
-            span.innerText = englishText[index] || '';
-            span.dataset.autoFilled = 'false';
-            requestAnimationFrame(() => {
-                span.style.transition = '';
-            });
-        }
-
-        function startTimerIfNeeded() {
-            const now = performance.now();
-            if (startTime === null) {
-                startTime = now;
-            } else if (endTime !== null) {
-                startTime += now - endTime;
-            }
-            endTime = null;
-            if (!statsIntervalId) {
-                statsIntervalId = setInterval(updateStatsDisplay, 1000);
-            }
-        }
-
-        function stopTimer() {
-            if (startTime === null || endTime !== null) return;
-            endTime = performance.now();
-            if (statsIntervalId) {
-                clearInterval(statsIntervalId);
-                statsIntervalId = null;
-            }
-            updateStatsDisplay();
-        }
-
-        function getElapsedMs() {
-            if (startTime === null) return 0;
-            const reference = endTime !== null ? endTime : performance.now();
-            return Math.max(0, reference - startTime);
-        }
-
-        function updateStatsDisplay() {
-            const totalChars = characters.length || 1;
-            const progress = Math.min(100, (currentIndex / totalChars) * 100);
-            progressValue.innerText = `${progress.toFixed(1)}%`;
-            progressFill.style.width = `${progress}%`;
-
-            const accuracy = typedCount === 0 ? 100 : (correctCount / typedCount) * 100;
-            accuracyValue.innerText = `${accuracy.toFixed(1)}%`;
-
-            const errors = Math.max(0, typedCount - correctCount);
-            errorsValue.innerText = `${errors}`;
-
-            const elapsedMs = getElapsedMs();
-            const totalSeconds = Math.floor(elapsedMs / 1000);
-            const minutes = Math.floor(totalSeconds / 60);
-            const seconds = totalSeconds % 60;
-            timeValue.innerText = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-
-            const elapsedMinutes = elapsedMs / 60000;
-            const wpm = elapsedMinutes > 0 ? (correctCount / 5) / elapsedMinutes : 0;
-            wpmValue.innerText = `${Math.round(wpm)}`;
-        }
-
-        function resetSession() {
-            currentIndex = 0;
-            typedCount = 0;
-            correctCount = 0;
-            if (statsIntervalId) {
-                clearInterval(statsIntervalId);
-                statsIntervalId = null;
-            }
-            startTime = null;
-            endTime = null;
-
-            characters.forEach((span, index) => {
-                span.classList.remove('correct', 'incorrect', 'partial-preview-active');
-                span.classList.remove('hint-reveal');
-                span.removeAttribute('data-typed-char');
-                span.innerText = englishText[index] || '';
-                span.dataset.autoFilled = 'false';
-            });
-
-            document.body.classList.remove('hide-upcoming');
-            document.body.classList.remove('korean-visible');
-            partialPreviewToggle.checked = false;
-            visibilityToggle.checked = true;
-            const infoLabel = document.querySelector('.info p');
-            if (infoLabel) {
-                infoLabel.innerText = '타이핑을 시작하세요. (Shift+K: 한글)';
-            }
-
-            skipUntypableCharacters();
-            skipPunctuation();
-            updatePartialPreview();
-            updateCursor();
-            updateStatsDisplay();
-            updateKoreanHighlight();
-            programmaticScroll = true;
-            textDisplay.scrollTop = 0;
-            setTimeout(() => {
-                programmaticScroll = false;
-                updateCursor(true);
-            }, 100);
-            textDisplay.focus();
-        }
-
-        function provideHint() {
-            skipUntypableCharacters();
-            if (currentIndex >= characters.length) return;
-
-            let hintIndex = currentIndex;
-            while (hintIndex < characters.length) {
-                if (isSkippable(hintIndex)) {
-                    hintIndex++;
-                    continue;
-                }
-                const span = characters[hintIndex];
-                if (!span.classList.contains('correct') && !span.classList.contains('hint-reveal')) {
-                    span.classList.add('hint-reveal');
-                    break;
-                }
-                hintIndex++;
-            }
-
-            updateCursor();
->>>>>>> 4aa5ba2d40ecbff73f928ca359f4fa9244bf17a4
         }
 
         let scrollTimeout;
         textDisplay.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            if (programmaticScroll) {
-                scrollTimeout = setTimeout(() => updateCursor(true), 80);
-                return;
-            }
             updateCursor(false);
+            clearTimeout(scrollTimeout);
             scrollTimeout = setTimeout(() => updateCursor(true), 150);
         });
 
@@ -806,8 +423,8 @@
             updateCursor();
             updateKoreanHighlight();
 
-            if (needsScrollIntoView) {
-                ensureCurrentVisible();
+            if (needsScrollIntoView && currentIndex < characters.length) {
+                characters[currentIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
 
             if (currentIndex >= characters.length) {
