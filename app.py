@@ -137,7 +137,7 @@ def fill(text_path):
     if not file_path.startswith(base_path) or not os.path.isfile(file_path):
         abort(404, "File not found")
 
-    # --- Start: Find previous/next text logic --
+    # --- Start: Find previous/next text logic ---
     next_text_path = None
     previous_text_path = None
     try:
@@ -169,10 +169,17 @@ def fill(text_path):
 
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
-            content = f.read().strip()
-        content = content.split('--korean--')[0].strip()
+            full_content = f.read().strip()
     except Exception as e:
         abort(500, f"Error reading file: {e}")
+
+    english_content = full_content
+    korean_content = ""
+    if '--korean--' in full_content:
+        parts = full_content.split('--korean--', 1)
+        english_content = parts[0].strip()
+        korean_content = parts[1].strip()
+
     title = os.path.splitext(os.path.basename(text_path))[0]
     
     random_image = get_random_image()
@@ -180,7 +187,8 @@ def fill(text_path):
     return render_template(
         'fill.html', 
         title=title, 
-        text_content=content,
+        text_content=english_content, # Pass english part as text_content
+        korean_content=korean_content, # Pass korean part
         random_image=random_image,
         next_text_path=next_text_path,
         previous_text_path=previous_text_path,
