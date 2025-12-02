@@ -203,33 +203,61 @@
         const punctuationToSkip = '!"#$%&\\\'()*+,-./:;<=>?@[\]^_`{|}~\n\t';
         let characters = [];
         let koreanSentences = [];
+        let englishBoundaries = [];
 
-        /**
-         * 텍스트 내에서 인용 부호를 고려하여 문장 수를 정확하게 계산하는 함수.
-         * @param {string} text - 문장 수를 계산할 텍스트.
-         * @returns {number} - 계산된 문장의 수.
-         */
-        function countSentences(text) {
-            let sentenceCount = 0;
-            let inDoubleQuote = false;
-            let inSingleQuote = false;
+        function isAlphaNum(ch) {
+            if (!ch) return false;
+            try { return /\p{L}|\p{N}/u.test(ch); } catch (e) { return /[a-zA-Z0-9]/.test(ch); }
+        }
 
-            for (const char of text) {
-                if (char === '"' && !inSingleQuote) {
-                    inDoubleQuote = !inDoubleQuote;
-                } else if (char === "'" && !inDoubleQuote) {
-                    inSingleQuote = !inSingleQuote;
-                } else if (/[.?!]/.test(char) && !inDoubleQuote && !inSingleQuote) {
-                    sentenceCount++;
+        function splitIntoSentences(text) {
+            const boundaries = [];
+            const quoteStack = [];
+            let start = 0;
+
+            const quotePairs = { '"': '"', "'": "'", '“': '”', '‘': '’' };
+            const openQuotes = Object.keys(quotePairs);
+            const punctRe = /[.!?…\u3002\uFF1F\uFF01]/;
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const lastQuote = quoteStack.length > 0 ? quoteStack[quoteStack.length - 1] : null;
+
+                if (quotePairs[char] === char) { // " or '
+                    if (lastQuote === char) {
+                        quoteStack.pop();
+                    } else if (char === "'" && isAlphaNum(text[i - 1]) && isAlphaNum(text[i + 1])) {
+                        continue;
+                    } else {
+                        quoteStack.push(char);
+                    }
+                } else if (openQuotes.includes(char)) { // “ or ‘
+                    quoteStack.push(char);
+                } else if (lastQuote && quotePairs[lastQuote] === char) { // ” or ’
+                    quoteStack.pop();
+                } else if (punctRe.test(char) && quoteStack.length === 0) {
+                    let end = i + 1;
+                    while (end < text.length && (punctRe.test(text[end]) || /\s/.test(text[end]))) {
+                        end++;
+                    }
+                    boundaries.push({ start: start, end: end });
+                    start = end;
+                    i = end - 1;
                 }
             }
-            return sentenceCount;
+
+            if (start < text.length) {
+                boundaries.push({ start: start, end: text.length });
+            }
+            
+            const sentences = boundaries.map(b => text.slice(b.start, b.end).trim()).filter(Boolean);
+            return { sentences, boundaries };
         }
 
         function setup() {
             if (koreanText) {
                 koreanWidget.innerHTML = '';
-                const sentences = koreanText.split(/(?<=[.?!])\s*/).filter(s => s.trim().length > 0);
+                const { sentences } = splitIntoSentences(koreanText);
                 sentences.forEach(sentence => {
                     const span = document.createElement('span');
                     span.innerText = sentence;
@@ -237,6 +265,10 @@
                     koreanSentences.push(span);
                 });
             }
+
+            const { boundaries } = splitIntoSentences(englishText);
+            englishBoundaries = boundaries;
+
             characters = englishText.split('').map(char => {
                 const span = document.createElement('span');
                 span.innerText = char;
@@ -246,15 +278,20 @@
         }
 
         function updateKoreanHighlight() {
-            if (koreanSentences.length === 0) return;
+            if (koreanSentences.length === 0 || englishBoundaries.length === 0) return;
 
-            const textUpToCursor = englishText.substring(0, currentIndex);
-            const sentenceIndex = countSentences(textUpToCursor); // 수정된 함수 사용
+            let sentenceIndex = englishBoundaries.findIndex(b => currentIndex < b.end);
+            if (sentenceIndex === -1 && currentIndex > 0) {
+                 sentenceIndex = englishBoundaries.length - 1;
+            }
+            if (sentenceIndex === -1) return;
 
             koreanSentences.forEach((span, index) => {
                 if (index === sentenceIndex) {
                     span.classList.add('highlight');
-                    span.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    if (document.body.classList.contains('korean-visible')) {
+                        span.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
                 } else {
                     span.classList.remove('highlight');
                 }

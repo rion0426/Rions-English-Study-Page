@@ -209,26 +209,8 @@
             const korSplit = splitIntoSentences(koreanText);
             korBoundaries = korSplit.boundaries;
             
-            if (engBoundaries.length > 0 && engBoundaries.length === korBoundaries.length) {
-                engToKorMap = engBoundaries.map((_, index) => index);
-                return;
-            }
-
-            const engTotalLength = Math.max(1, plainEnglishText.length);
-            const korTotalLength = Math.max(1, koreanText.length);
-
-            engToKorMap = engBoundaries.map(b => {
-                if (!korBoundaries.length) return -1;
-                const engCenter = (b.start + b.end) / 2;
-                const normalized = engCenter / engTotalLength;
-                const targetKorPos = Math.round(normalized * korTotalLength);
-                
-                let korIdx = korBoundaries.findIndex(kb => targetKorPos >= kb.start && targetKorPos < kb.end);
-                if (korIdx === -1) {
-                    korIdx = korBoundaries.findIndex(kb => targetKorPos < kb.end);
-                }
-                return korIdx === -1 ? korBoundaries.length - 1 : korIdx;
-            });
+            // Always use 1-to-1 mapping for simplicity, as requested.
+            engToKorMap = engBoundaries.map((_, index) => index);
         }
 
         function prepareKoreanWidget() {
