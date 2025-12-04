@@ -217,7 +217,7 @@
 
             const quotePairs = { '"': '"', "'": "'", '“': '”', '‘': '’' };
             const openQuotes = Object.keys(quotePairs);
-            const punctRe = /[.!?…\u3002\uFF1F\uFF01]/;
+            const punctRe = /[.!?\u3002\uFF1F\uFF01]/;
 
             for (let i = 0; i < text.length; i++) {
                 const char = text[i];
