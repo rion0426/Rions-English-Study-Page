@@ -400,8 +400,8 @@
                     }
                     return;
                 }
-                if (e.key.toLowerCase() === 'o') { e.preventDefault(); visibilityToggle.click(); }
-                if (e.key.toLowerCase() === 'h') { e.preventDefault(); partialPreviewToggle.click(); }
+                if (e.key.toLowerCase() === 'o') { e.preventDefault(); visibilityToggle.click(); return; }
+                if (e.key.toLowerCase() === 'h') { e.preventDefault(); partialPreviewToggle.click(); return; }
             }
 
             if (e.ctrlKey) {
