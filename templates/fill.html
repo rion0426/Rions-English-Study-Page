@@ -114,11 +114,11 @@
                 <div class="switch-container">
                     <div class="switch-group">
                         <label class="switch"><input type="checkbox" id="toggle-preview"><span class="slider"></span></label>
-                        <label for="toggle-preview" class="switch-label">미리보기 (Ctrl+H)</label>
+                        <label for="toggle-preview" class="switch-label">미리보기 (Shift+H)</label>
                     </div>
                     <div class="switch-group">
                         <label class="switch"><input type="checkbox" id="toggle-first-letter"><span class="slider"></span></label>
-                        <label for="toggle-first-letter" class="switch-label">앞글자만 보기 (Ctrl+I)</label>
+                        <label for="toggle-first-letter" class="switch-label">앞글자만 보기 (Shift+I)</label>
                     </div>
                     <div class="switch-group">
                         <label class="switch"><input type="checkbox" id="darkModeToggle"><span class="slider"></span></label>
@@ -408,14 +408,17 @@
         }
 
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey) {
-                if (e.key.toLowerCase() === 'h') { e.preventDefault(); previewToggle.click(); return; }
-                if (e.key.toLowerCase() === 'i') { e.preventDefault(); firstLetterToggle.click(); return; }
+            if (e.ctrlKey) {                
                 if (e.key === 'ArrowRight' && nextTextUrl) { e.preventDefault(); window.location.href = nextTextUrl; return; }
                 if (e.key === 'ArrowLeft' && previousTextUrl) { e.preventDefault(); window.location.href = previousTextUrl; return; }
             }
-
-            if (e.shiftKey && e.key === 'ArrowRight') {
+            if (e.shiftKey && e.key.toLowerCase() === 'h') { 
+                e.preventDefault(); previewToggle.click(); return; 
+            }
+            else if(e.shiftKey && e.key.toLowerCase() === 'i'){
+                 e.preventDefault(); firstLetterToggle.click(); return; 
+            } 
+            else if(e.shiftKey && e.key === 'ArrowRight') {
                 e.preventDefault();
                 focusAndScroll(currentBlankIndex + 1);
             } else if (e.shiftKey && e.key === 'ArrowLeft') {

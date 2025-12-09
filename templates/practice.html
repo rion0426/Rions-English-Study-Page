@@ -166,11 +166,11 @@
                     <div class="switch-container">
                         <div class="switch-group">
                             <label class="switch"><input type="checkbox" id="toggle-visibility"><span class="slider"></span></label>
-                            <label for="toggle-visibility" class="switch-label">미리보기 (Ctrl+O)</label>
+                            <label for="toggle-visibility" class="switch-label">미리보기 (Shift+O)</label>
                         </div>
                         <div class="switch-group">
                             <label class="switch"><input type="checkbox" id="toggle-partial-preview"><span class="slider"></span></label>
-                            <label for="toggle-partial-preview" class="switch-label">일부 미리보기 (Ctrl+H)</label>
+                            <label for="toggle-partial-preview" class="switch-label">일부 미리보기 (Shift+H)</label>
                         </div>
                         <div class="switch-group">
                             <label class="switch"><input type="checkbox" id="darkModeToggle"><span class="slider"></span></label>
@@ -400,13 +400,14 @@
                     }
                     return;
                 }
+                if (e.key.toLowerCase() === 'o') { e.preventDefault(); visibilityToggle.click(); }
+                if (e.key.toLowerCase() === 'h') { e.preventDefault(); partialPreviewToggle.click(); }
             }
 
             if (e.ctrlKey) {
                 if (e.key === 'ArrowLeft' && previousTextUrl) window.location.href = previousTextUrl;
                 if (e.key === 'ArrowRight' && nextTextUrl) window.location.href = nextTextUrl;
-                if (e.key.toLowerCase() === 'o') { e.preventDefault(); visibilityToggle.click(); }
-                if (e.key.toLowerCase() === 'h') { e.preventDefault(); partialPreviewToggle.click(); }
+                
                 return;
             }
 
