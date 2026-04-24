@@ -319,7 +319,7 @@
                 <div class="profile-container">
                     <img src="/static/img/rion.png" alt="Profile" class="profile-pic" id="profilePic">
                     <div class="profile-info" id="profileInfo">
-                        <span class="bold">Developed by 김리온(1-6), Gemini</span><br>
+                        <span class="bold">Developed by 김리온(2-5), Gemini 3, Codex 5.4</span><br>
                         <span class="bold">Donate:</span> 7777-02-8261429 카카오뱅크
                     </div>
                 </div>
