@@ -906,11 +906,14 @@
                 const linePairs = state.text.line_pairs || [];
                 let activeIndex = 0;
                 let resizeObserver = null;
+                let touchStartY = null;
+                let touchStartX = null;
+                let touchTracking = false;
 
                 cursor.style.opacity = "0";
                 koreanWidget.innerHTML = "";
                 switchContainer.innerHTML = `
-                    <div class="switch-group line-mode-help">↑/↓ 문장 이동</div>
+                    <div class="switch-group line-mode-help">↑/↓ 또는 위아래 슬라이드로 문장 이동</div>
                     <div class="switch-group">
                         <label class="switch"><input type="checkbox" id="darkModeToggle"><span class="slider"></span></label>
                         <label for="darkModeToggle" class="switch-label">다크모드</label>
@@ -1086,12 +1089,67 @@
                     });
                 }
 
+                function handleTouchStart(event) {
+                    if (!event.touches || event.touches.length !== 1) {
+                        touchTracking = false;
+                        return;
+                    }
+
+                    touchTracking = true;
+                    touchStartY = event.touches[0].clientY;
+                    touchStartX = event.touches[0].clientX;
+                }
+
+                function handleTouchMove(event) {
+                    if (!touchTracking || !event.touches || event.touches.length !== 1) {
+                        return;
+                    }
+
+                    const deltaY = event.touches[0].clientY - touchStartY;
+                    const deltaX = event.touches[0].clientX - touchStartX;
+
+                    if (Math.abs(deltaY) > Math.abs(deltaX) && Math.abs(deltaY) > 18) {
+                        event.preventDefault();
+                    }
+                }
+
+                function handleTouchEnd(event) {
+                    if (!touchTracking) {
+                        return;
+                    }
+
+                    const touch = event.changedTouches && event.changedTouches[0];
+                    touchTracking = false;
+                    if (!touch) {
+                        return;
+                    }
+
+                    const deltaY = touch.clientY - touchStartY;
+                    const deltaX = touch.clientX - touchStartX;
+                    touchStartY = null;
+                    touchStartX = null;
+
+                    if (Math.abs(deltaY) < 44 || Math.abs(deltaY) <= Math.abs(deltaX)) {
+                        return;
+                    }
+
+                    if (deltaY < 0) {
+                        setActiveLine(activeIndex + 1);
+                    } else {
+                        setActiveLine(activeIndex - 1);
+                    }
+                }
+
                 renderScene();
                 updateCardStates();
                 syncScenePadding();
                 updateCamera(false);
                 textDisplay.focus();
                 darkModeToggle.addEventListener("change", handleDarkModeChange);
+                camera.addEventListener("touchstart", handleTouchStart, { passive: true });
+                camera.addEventListener("touchmove", handleTouchMove, { passive: false });
+                camera.addEventListener("touchend", handleTouchEnd, { passive: true });
+                camera.addEventListener("touchcancel", handleTouchEnd, { passive: true });
 
                 if ("ResizeObserver" in window) {
                     resizeObserver = new ResizeObserver(() => {
@@ -1110,6 +1168,10 @@
                         resizeObserver.disconnect();
                     }
                     darkModeToggle.removeEventListener("change", handleDarkModeChange);
+                    camera.removeEventListener("touchstart", handleTouchStart);
+                    camera.removeEventListener("touchmove", handleTouchMove);
+                    camera.removeEventListener("touchend", handleTouchEnd);
+                    camera.removeEventListener("touchcancel", handleTouchEnd);
                     document.removeEventListener("keydown", handleKeydown);
                 };
             }

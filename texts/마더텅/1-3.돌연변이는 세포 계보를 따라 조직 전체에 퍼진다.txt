@@ -1,10 +1,26 @@
-In each round of **genome copying** in our body, there is still about a 70 percent chance that at least one pair of **chromosomes** will have an **error**. With each round of genome copying, errors **accumulate**. This is similar to **alterations** in medieval books. Each time a copy was made by hand, some changes were introduced accidentally; as changes stacked up, the copies may have acquired meanings at **variance** with the original. Similarly, genomes that have undergone more copying processes will have gathered more mistakes.
-우리 몸에서 게놈이 복제되는 각 과정마다 적어도 한 쌍의 염색체에 오류가 생길 확률이 약 70%나 되며 복제가 반복될수록 오류는 축적되는데 이는 중세 필사본이 복사될 때마다 변화가 쌓여 원본과 다른 의미를 띠게 되는 것과 유사하다.
+In each round of **genome copying** in our body, there is still about a 70 percent chance that at least one pair of **chromosomes** will have an **error**.
+우리 몸에서 게놈이 복제되는 각 과정마다 적어도 한 쌍의 염색체에 오류가 생길 확률이 약 70퍼센트나 된다.
+With each round of genome copying, errors **accumulate**.
+게놈 복제가 반복될수록 오류는 축적된다.
+This is similar to **alterations** in medieval books.
+이는 중세 필사본의 변형과 유사하다.
+Each time a copy was made by hand, some changes were introduced accidentally; as changes stacked up, the copies may have acquired meanings at **variance** with the original.
+손으로 사본을 만들 때마다 일부 변화가 우연히 생겨났고, 그런 변화가 쌓이면서 사본은 원본과 다른 의미를 띠게 되었을 수도 있다.
+Similarly, genomes that have undergone more copying processes will have gathered more mistakes.
+마찬가지로, 더 많은 복제 과정을 거친 게놈은 더 많은 실수를 축적하게 된다.
 To make things worse, **mutations** may damage genes responsible for **error checking** and **repair** of genomes, further accelerating the introduction of mutations.
-또한 변이는 오류 검출과 복구를 담당하는 유전자를 손상시켜 이러한 변이의 축적을 더욱 가속시킬 수 있다.
-Most genome mutations do not have any noticeable **effects**. It is just like changing the i for a y in “kingdom” would not distort the word’s **readability**.
-대부분의 게놈 변이는 뚜렷한 영향을 주지 않으며 이는 ‘kingdom’에서 i를 y로 바꿔도 단어의 가독성이 크게 왜곡되지 않는 것과 같다.
-But sometimes a **mutation** to a human gene results in, for example, an eye whose **iris** is of two different colors. Similarly, almost everyone has **birthmarks**, which are due to mutations that occurred as our body’s cells multiplied to form skin.
-그러나 때때로 변이는 홍채 색이 서로 다른 눈과 같은 변화를 일으키기도 하고 많은 사람들이 가진 점 역시 세포가 증식하는 과정에서 생긴 변이 때문이다.
-If mutations are changes to the genome of one particular **cell**, how can a patch of cells in an iris or a whole patch of skin, consisting of many individual cells, be affected simultaneously? The answer lies in the **cell lineage**, the **developmental** history of a tissue from particular cells through to their fully **differentiated** state. If the mutation occurred early on in the lineage of the developing iris, then all cells in that patch have **inherited** that change.
-만약 변이가 하나의 세포에서 시작된 것이라면 여러 세포로 이루어진 조직이 어떻게 동시에 영향을 받는지에 대한 답은 세포 계보에 있으며 발생 초기에 변이가 생기면 그 계열의 모든 세포가 그 변화를 물려받게 된다.
+설상가상으로, 변이는 게놈의 오류 점검과 복구를 담당하는 유전자를 손상시켜 변이의 발생을 더욱 가속할 수 있다.
+Most genome mutations do not have any noticeable **effects**.
+대부분의 게놈 변이는 눈에 띄는 영향을 거의 주지 않는다.
+It is just like changing the i for a y in “kingdom” would not distort the word’s **readability**.
+이는 “kingdom”에서 i를 y로 바꾸어도 그 단어의 가독성이 왜곡되지 않는 것과 같다.
+But sometimes a **mutation** to a human gene results in, for example, an eye whose **iris** is of two different colors.
+그러나 때때로 인간 유전자의 변이는, 예를 들어 홍채 색이 서로 다른 눈을 초래하기도 한다.
+Similarly, almost everyone has **birthmarks**, which are due to mutations that occurred as our body’s cells multiplied to form skin.
+마찬가지로, 거의 모든 사람이 가진 점은 우리 몸의 세포가 피부를 형성하기 위해 증식하는 동안 일어난 변이 때문이다.
+If mutations are changes to the genome of one particular **cell**, how can a patch of cells in an iris or a whole patch of skin, consisting of many individual cells, be affected simultaneously?
+만약 변이가 특정한 하나의 세포의 게놈에 생긴 변화라면, 어떻게 홍채의 세포 무리나 피부의 한 부분처럼 많은 개별 세포로 이루어진 조직이 동시에 영향을 받을 수 있을까?
+The answer lies in the **cell lineage**, the **developmental** history of a tissue from particular cells through to their fully **differentiated** state.
+그 답은 세포 계보, 즉 특정 세포에서 완전히 분화된 상태에 이르기까지 한 조직이 발달해 온 역사에 있다.
+If the mutation occurred early on in the lineage of the developing iris, then all cells in that patch have **inherited** that change.
+만약 그 변이가 발달 중인 홍채의 세포 계보 초기에 발생했다면, 그 부분의 모든 세포는 그 변화를 물려받게 된다.
