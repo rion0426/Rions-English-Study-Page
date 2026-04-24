@@ -1,7 +1,7 @@
 import random
 from pathlib import Path
 
-from flask import Flask, abort, jsonify, render_template, url_for
+from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
 
 app = Flask(__name__)
 
@@ -61,6 +61,12 @@ def _build_breadcrumbs(subdirectory: str = "") -> tuple[list[dict[str, str]], st
 def _split_text_content(raw_text: str) -> tuple[str, str]:
     parsed = _parse_text_content(raw_text)
     return parsed["english_content"], parsed["korean_content"]
+
+
+def _normalize_study_mode(mode: str | None) -> str:
+    if mode in {"fill", "line"}:
+        return mode
+    return "practice"
 
 
 def _contains_hangul(text: str) -> bool:
@@ -181,40 +187,76 @@ def _get_random_image_url() -> str | None:
     return url_for("static", filename=f"img/{random.choice(image_files)}")
 
 
-def _render_shell() -> str:
-    return render_template("app.html")
+def _build_browse_payload(subdirectory: str = "") -> dict[str, object]:
+    breadcrumbs, parent_path = _build_breadcrumbs(subdirectory)
+    return {
+        "current_path": subdirectory,
+        "parent_path": parent_path,
+        "breadcrumbs": breadcrumbs,
+        "items": _list_directory(subdirectory),
+        "random_image_url": _get_random_image_url(),
+    }
+
+
+def _build_text_payload(text_path: str) -> dict[str, object]:
+    payload = _load_text_payload(text_path)
+    payload["random_image_url"] = _get_random_image_url()
+    return payload
+
+
+def _render_select_page(subdirectory: str = "") -> str:
+    return render_template("select.html", browse=_build_browse_payload(subdirectory))
+
+
+def _render_study_page(text_path: str, mode: str | None) -> str:
+    study_mode = _normalize_study_mode(mode)
+    return render_template(
+        "study.html",
+        text=_build_text_payload(text_path),
+        mode=study_mode,
+    )
 
 
 @app.route("/")
+def index() -> str:
+    return _render_select_page("")
+
+
 @app.route("/select/")
 @app.route("/select/<path:subdirectory>")
+def select_page(subdirectory: str = "") -> str:
+    return _render_select_page(subdirectory)
+
+
 @app.route("/study/<path:text_path>")
+def study_page(text_path: str) -> str:
+    return _render_study_page(text_path, request.args.get("mode"))
+
+
 @app.route("/practice/<path:text_path>")
+def legacy_practice_page(text_path: str):
+    return redirect(url_for("study_page", text_path=text_path), code=302)
+
+
 @app.route("/fill/<path:text_path>")
-def shell(subdirectory: str | None = None, text_path: str | None = None) -> str:
-    return _render_shell()
+def legacy_fill_page(text_path: str):
+    return redirect(url_for("study_page", text_path=text_path, mode="fill"), code=302)
+
+
+@app.route("/line/<path:text_path>")
+def legacy_line_page(text_path: str):
+    return redirect(url_for("study_page", text_path=text_path, mode="line"), code=302)
 
 
 @app.get("/api/browse/")
 @app.get("/api/browse/<path:subdirectory>")
 def browse_api(subdirectory: str = ""):
-    breadcrumbs, parent_path = _build_breadcrumbs(subdirectory)
-    return jsonify(
-        {
-            "current_path": subdirectory,
-            "parent_path": parent_path,
-            "breadcrumbs": breadcrumbs,
-            "items": _list_directory(subdirectory),
-            "random_image_url": _get_random_image_url(),
-        }
-    )
+    return jsonify(_build_browse_payload(subdirectory))
 
 
 @app.get("/api/text/<path:text_path>")
 def text_api(text_path: str):
-    payload = _load_text_payload(text_path)
-    payload["random_image_url"] = _get_random_image_url()
-    return jsonify(payload)
+    return jsonify(_build_text_payload(text_path))
 
 
 if __name__ == "__main__":

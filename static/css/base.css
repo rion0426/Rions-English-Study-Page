@@ -1,0 +1,174 @@
+:root {
+    --bg-color: #f7f9fc;
+    --text-color: #333;
+    --text-color-light: #555;
+    --card-bg: #fff;
+    --link-bg: #007bff;
+    --link-hover-bg: #0056b3;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --folder-bg: #ffc107;
+    --folder-hover-bg: #e0a800;
+    --folder-text: #212529;
+    --current-bg: #cfe2ff;
+    --correct-color: #333;
+    --incorrect-color: #dc3545;
+    --incorrect-bg: #f8d7da;
+    --upcoming-color: #ccc;
+    --link-color: #007bff;
+    --link-hover-color: #0056b3;
+    --button-darker-bg: rgba(0, 0, 0, 0.05);
+    --highlight-color: #eee;
+    --fill-correct-color: #28a745;
+    --panel-separator: rgba(0, 0, 0, 0.08);
+    --control-frost: rgba(255, 255, 255, 0.72);
+    --control-frost-clear: rgba(255, 255, 255, 0);
+    color-scheme: light;
+}
+
+html.dark-mode {
+    --bg-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --text-color-light: #aaa;
+    --card-bg: #2c2c2c;
+    --link-bg: #3498db;
+    --link-hover-bg: #2980b9;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --folder-bg: #ffc107;
+    --folder-hover-bg: #e0a800;
+    --folder-text: #212529;
+    --current-bg: #3a5378;
+    --correct-color: #fff;
+    --incorrect-color: #ff6b81;
+    --incorrect-bg: #5c2c34;
+    --upcoming-color: #666;
+    --link-color: #3498db;
+    --link-hover-color: #2980b9;
+    --button-darker-bg: rgba(255, 255, 255, 0.1);
+    --highlight-color: #444;
+    --fill-correct-color: #28a745;
+    --panel-separator: rgba(255, 255, 255, 0.08);
+    --control-frost: rgba(44, 44, 44, 0.72);
+    --control-frost-clear: rgba(44, 44, 44, 0);
+    color-scheme: dark;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+body {
+    margin: 0;
+    color: var(--text-color);
+    background-color: var(--bg-color);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+button {
+    border: 0;
+    background: none;
+    padding: 0;
+    color: inherit;
+}
+
+.page-shell {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    inset: 0;
+    cursor: pointer;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    left: 3px;
+    bottom: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #fff;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: var(--link-color);
+}
+
+input:checked + .slider::before {
+    transform: translateX(20px);
+}
+
+.status-card {
+    max-width: 800px;
+    width: 100%;
+    margin: 40px auto 0;
+    padding: 24px;
+    border-radius: 16px;
+    background: var(--card-bg);
+    box-shadow: 0 8px 30px var(--shadow-color);
+    text-align: center;
+    color: var(--text-color-light);
+    opacity: 0;
+    animation: fadeIn 0.4s ease-out forwards;
+}
+
+.status-card h2 {
+    color: var(--text-color);
+}
+
+@media (max-width: 720px) {
+    body.page-study,
+    body.page-select {
+        padding: 14px;
+    }
+}

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rion's English Study Page</title>
+    <script>
+        (function () {
+            try {
+                var saved = JSON.parse(localStorage.getItem("englishStudySettings") || "{}");
+                if (saved.darkMode) {
+                    document.documentElement.classList.add("dark-mode");
+                }
+            } catch (error) {}
+        }());
+    </script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/select.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/study.css') }}">
+</head>
+<body class="page-select" data-page="select">
+    <div id="page-root">
+        <div class="page-shell">
+            <div class="title-wrapper">
+                <h2 class="site-title">Rion's English Study Page</h2>
+                <div class="profile-container">
+                    <img src="{{ url_for('static', filename='img/rion.png') }}" alt="Profile" class="profile-pic" id="profilePic">
+                    <div class="profile-info" id="profileInfo">
+                        <span class="bold">Developed by 김리온(2-5), Gemini 3, Codex 5.4</span><br>
+                        <span class="bold">Donate:</span> 7777-02-8261429 카카오뱅크
+                    </div>
+                </div>
+            </div>
+            <div class="select-container">
+                {% if browse["random_image_url"] %}
+                <div class="image-header">
+                    <img src="{{ browse["random_image_url"] }}" alt="Header image">
+                </div>
+                {% endif %}
+                <div class="content-wrapper">
+                    <div class="top-bar">
+                        <div class="navigation">
+                            {% if browse["parent_path"] is not none %}
+                                {% if browse["parent_path"] %}
+                                <a class="back-button" href="{{ url_for('select_page', subdirectory=browse["parent_path"]) }}">&laquo; 뒤로 가기</a>
+                                {% else %}
+                                <a class="back-button" href="{{ url_for('select_page') }}">&laquo; 맨 위로</a>
+                                {% endif %}
+                            {% endif %}
+                            <div class="breadcrumbs">
+                                <a href="{{ url_for('select_page') }}">Home</a>
+                                {% for crumb in browse["breadcrumbs"] %}
+                                <span>/</span>
+                                <a href="{{ url_for('select_page', subdirectory=crumb["path"]) }}">{{ crumb["name"] }}</a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="darkModeToggle">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="file-list">
+                        <ul>
+                            {% if browse["items"] %}
+                                {% for item in browse["items"] %}
+                                <li>
+                                    {% if item["type"] == "folder" %}
+                                    <a class="item-link folder-item" href="{{ url_for('select_page', subdirectory=item["path"]) }}">
+                                        <span>📁</span> {{ item["name"] }}
+                                    </a>
+                                    {% else %}
+                                    <div class="file-item-container">
+                                        <div class="file-title">{{ item["name"] }}</div>
+                                        <div class="file-actions">
+                                            <a class="action-button study-button" href="{{ url_for('study_page', text_path=item["path"]) }}">
+                                                <span>📚</span> 공부
+                                            </a>
+                                        </div>
+                                    </div>
+                                    {% endif %}
+                                </li>
+                                {% endfor %}
+                            {% else %}
+                            <li>
+                                <div class="file-item-container">
+                                    <div class="file-title">현재 폴더에 텍스트가 없습니다.</div>
+                                </div>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/select.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/study.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/navigation.js') }}"></script>
+</body>
+</html>
