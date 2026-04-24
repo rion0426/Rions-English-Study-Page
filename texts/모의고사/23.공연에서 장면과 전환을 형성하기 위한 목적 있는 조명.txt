@@ -1,0 +1,12 @@
+Most **performance** **lighting** is made up of a **number** of **different** looks which we have called **lighting** states.
+대부분의 공연 조명은 우리가 조명 상태라고 부르는 여러 가지 서로 다른 조명 (연출) 장면으로 구성되어 있다.
+Each **lighting** cue **triggers** a **change** to a new state.
+각각의 조명 신호는 새로운 상태로의 변화를 이끌어낸다.
+Like actors, **lighting** cues usually need a **motivation**.
+배우처럼, 조명 신호도 보통 계기가 필요하다.
+This might be **something** very obvious such as a cue **required** to **brighten** a room setting when an actor turns on a light switch or the rapid **increase** in **intensity** at the end of a dance **number** in a **traditional** musical (known as a button cue).
+이는 배우가 전등 스위치를 켤 때 방의 배경을 밝히기 위해 필요한 신호나 전통적인 뮤지컬에서 하나의 댄스 음악이 끝날 때 강도를 빠르게 높이는 것(버튼 큐라고 알려진)처럼 매우 명백한 것일 수도 있다.
+At other times we will need a cue to provide a subtle **change** in **atmosphere** over a **number** of minutes, **motivated** perhaps by the mention of a sunset or the **intention** to slowly **change** the feel of the **performance** from normal to **threatening**.
+다른 때에는 몇 분에 걸쳐 분위기의 미묘한 변화를 제공하는 신호가 필요할 것이며, 이는 아마도 일몰에 대한 언급에 의해서나 공연의 분위기를 보통에서 위협적으로 천천히 바꾸고자 하는 의도에서 비롯될 수 있다.
+The **question**, 'What will **lighting** do for this **production**?' needs to be asked for each moment of the **production**, each dramatic unit or scene, and each **transition**.
+'이 작품에서 조명이 무엇을 할 것인가?'라는 질문은, 작품의 각 순간, 각 극적 단위 또는 장면, 그리고 각 전환마다 제기될 필요가 있다.

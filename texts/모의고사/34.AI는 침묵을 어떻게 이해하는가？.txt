@@ -1,0 +1,10 @@
+Such **artificial** 'pause fillers' as **machine**­**generated** **supplements** for **silence** may help to produce a more natural­sounding cadence in **machine**­**generated** speech patterns and so help to convince the **AI's** **human** **interlocutors** that they are engaging with another **human**.
+기계가 생성하는 침묵의 보완 요소로서의 인공적인 'pause filler(대화나 발표 중 잠시 멈추는 순간에 사용하는 의미 없는 단어나 어구)'는 기계가 만들어 낸 발화 패턴에서 좀 더 자연스럽게 들리도록 억양을 만드는 데 도움이 될 수 있으며 그 결과 AI의 인간 대화 상대에게 자신이 또 다른 인간과 (대화를) 함께하고 있다고 확신시키는 데에 도움을 준다.
+**AI's** 'humanity' of **silence** emerges in these contexts not least because a short period of **silence** is likely to be **interpreted** as a 'pause for thought', therefore **reinforcing** the illusion that the **machine** is 'thinking' before **responding**, just as a **human** might.
+침묵에 대한 AI의 '인간다움'은 이러한 맥락에서 나타나는데 특히 이것은 짧은 침묵의 기간이 '생각을 위한 멈춤'으로 해석될 가능성이 크기 때문이며, 이로 인해 인간이 (그렇게) 하듯이 기계가 응답하기 전에 '생각'을 하고 있다는 환상을 강화한다.
+However, the technical issues flagged in **AI's** poor handling of higher duration and frequency **silences**, no less than the **machine** inference that **silence** can be filled with relevant sounds in some **conversational** **situations**, are both **significant**.
+그러나, 지속 시간이 길거나 빈번한 침묵을 AI가 제대로 처리하지 못한다는 점에서 두드러지는 기술적 문제들과, 일부 대화 상황에서 침묵이 적절한 소리로 채워질 수 있다는 기계의 추론은, 둘 다 중요한 의미를 갖는다.
+In this context at least, the AI may be starting to recognise **silence** not as an **absence** but as **meaningful** data.
+적어도 이러한 맥락에서는, AI는 침묵을 (데이터가) 없는 상태가 아니라 의미 있는 데이터라고 인식하기 시작했을지도 모른다.
+Yet the **AI's** confusion when presented with **substantial** **silences**, and its **understanding** that short break tags are equivalent to vocal markers such as 'uh's' and 'ah's' indicate the **AI's** continuing **preferences** for sound over **silence**, for presence over **absence**.
+하지만 긴 침묵이 주어졌을 때 AI가 겪는 혼란과, 짧은 (대화) 끊김 표식을 '어', '아'와 같은 발화 표지에 상응하는 것으로 이해한다는 점은 침묵보다는 소리를, 부재보다는 존재에 대한 AI의 지속적 선호를 보여준다.

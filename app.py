@@ -1,199 +1,221 @@
-import os
 import random
-from flask import Flask, render_template, abort
+from pathlib import Path
+
+from flask import Flask, abort, jsonify, render_template, url_for
 
 app = Flask(__name__)
 
-APP_ROOT = os.path.dirname(os.path.abspath(__file__))
-TEXTS_BASE_DIR = os.path.join(APP_ROOT, 'texts')
+APP_ROOT = Path(__file__).resolve().parent
+TEXTS_BASE_DIR = APP_ROOT / "texts"
+IMAGE_DIR = APP_ROOT / "static" / "img"
+KOREAN_SEPARATOR = "--korean--"
+HANGUL_RANGE = ("\uac00", "\ud7a3")
 
-def get_directory_contents(subdirectory=''):
-    base_path = os.path.abspath(TEXTS_BASE_DIR)
-    requested_path = os.path.abspath(os.path.join(base_path, subdirectory))
-    if not requested_path.startswith(base_path): abort(404, "Invalid path")
-    if not os.path.isdir(requested_path): abort(404, "Directory not found")
+
+def _resolve_under(base_dir: Path, relative_path: str = "") -> Path:
+    base_dir = base_dir.resolve()
+    target_path = (base_dir / relative_path).resolve()
+    try:
+        target_path.relative_to(base_dir)
+    except ValueError:
+        abort(404, "Invalid path")
+    return target_path
+
+
+def _normalize_relative(path: Path) -> str:
+    if path == TEXTS_BASE_DIR.resolve():
+        return ""
+    return path.relative_to(TEXTS_BASE_DIR.resolve()).as_posix()
+
+
+def _list_directory(subdirectory: str = "") -> list[dict[str, str]]:
+    directory = _resolve_under(TEXTS_BASE_DIR, subdirectory)
+    if not directory.is_dir():
+        abort(404, "Directory not found")
+
     items = []
-    for name in sorted(os.listdir(requested_path)):
-        full_path = os.path.join(requested_path, name)
-        relative_path = os.path.join(subdirectory, name)
-        if os.path.isdir(full_path):
-            items.append({'name': name, 'type': 'folder', 'path': relative_path})
-        elif name.endswith('.txt'):
-            title = os.path.splitext(name)[0]
-            items.append({'name': title, 'type': 'file', 'path': relative_path})
+    children = sorted(directory.iterdir(), key=lambda child: (child.is_file(), child.name.lower()))
+    for child in children:
+        relative_path = _normalize_relative(child)
+        if child.is_dir():
+            items.append({"name": child.name, "type": "folder", "path": relative_path})
+        elif child.suffix.lower() == ".txt":
+            items.append({"name": child.stem, "type": "file", "path": relative_path})
     return items
 
-def get_breadcrumbs(subdirectory=''):
-    parts = subdirectory.split(os.sep) if subdirectory else []
+
+def _build_breadcrumbs(subdirectory: str = "") -> tuple[list[dict[str, str]], str | None]:
+    if not subdirectory:
+        return [], None
+
     breadcrumbs = []
-    for i in range(len(parts)):
-        path = os.path.join(*parts[:i+1])
-        breadcrumbs.append({'name': parts[i], 'path': path})
-    parent_path = os.path.dirname(subdirectory) if subdirectory else None
-    if parent_path == '': parent_path = '/'
+    parts = Path(subdirectory).parts
+    for index, part in enumerate(parts):
+        breadcrumbs.append({"name": part, "path": Path(*parts[: index + 1]).as_posix()})
+
+    parent_parts = parts[:-1]
+    parent_path = Path(*parent_parts).as_posix() if parent_parts else ""
     return breadcrumbs, parent_path
 
-def get_random_image():
-    """랜덤 이미지 파일명을 반환하는 함수 (중복 제거)"""
-    random_image = None
-    image_folder = os.path.join(app.static_folder, 'img')
-    if os.path.exists(image_folder):
-        image_files = [f for f in os.listdir(image_folder) if os.path.isfile(os.path.join(image_folder, f))]
-        if image_files:
-            random_image = random.choice(image_files)
-    return random_image
 
-@app.route('/')
-def index():
-    return select()
+def _split_text_content(raw_text: str) -> tuple[str, str]:
+    parsed = _parse_text_content(raw_text)
+    return parsed["english_content"], parsed["korean_content"]
 
-@app.route('/select/')
-@app.route('/select/<path:subdirectory>')
-def select(subdirectory=''):
-    contents = get_directory_contents(subdirectory)
-    breadcrumbs, parent_path = get_breadcrumbs(subdirectory)
-    
-    # --- select 페이지에도 랜덤 이미지 전달 ---
-    random_image = get_random_image()
 
-    return render_template(
-        'select.html',
-        contents=contents,
-        current_path=subdirectory,
-        parent_path=parent_path,
-        breadcrumbs=breadcrumbs,
-        random_image=random_image  # 이미지 파일명 전달
+def _contains_hangul(text: str) -> bool:
+    return any(HANGUL_RANGE[0] <= char <= HANGUL_RANGE[1] for char in text)
+
+
+def _parse_legacy_separator_format(raw_text: str) -> dict[str, str | list[dict[str, str]]]:
+    english_part, korean_part = raw_text.split(KOREAN_SEPARATOR, 1)
+    english_lines = [line.strip() for line in english_part.splitlines() if line.strip()]
+    korean_lines = [line.strip() for line in korean_part.splitlines() if line.strip()]
+    pair_count = min(len(english_lines), len(korean_lines))
+    line_pairs = [
+        {"english": english_lines[index], "korean": korean_lines[index]}
+        for index in range(pair_count)
+    ]
+    return {
+        "english_content": "\n".join(english_lines),
+        "korean_content": "\n".join(korean_lines),
+        "line_pairs": line_pairs,
+    }
+
+
+def _parse_alternating_line_format(raw_text: str) -> dict[str, str | list[dict[str, str]]] | None:
+    lines = [line.strip() for line in raw_text.replace("\ufeff", "").splitlines() if line.strip()]
+    if len(lines) < 2 or len(lines) % 2 != 0:
+        return None
+
+    english_lines = lines[0::2]
+    korean_lines = lines[1::2]
+    if not english_lines or not korean_lines:
+        return None
+
+    english_like = sum(1 for line in english_lines if not _contains_hangul(line))
+    korean_like = sum(1 for line in korean_lines if _contains_hangul(line))
+    if english_like != len(english_lines) or korean_like != len(korean_lines):
+        return None
+
+    line_pairs = [
+        {"english": english_lines[index], "korean": korean_lines[index]}
+        for index in range(len(english_lines))
+    ]
+    return {
+        "english_content": "\n".join(english_lines),
+        "korean_content": "\n".join(korean_lines),
+        "line_pairs": line_pairs,
+    }
+
+
+def _parse_text_content(raw_text: str) -> dict[str, str | list[dict[str, str]]]:
+    normalized = raw_text.replace("\ufeff", "").strip()
+    if KOREAN_SEPARATOR in normalized:
+        return _parse_legacy_separator_format(normalized)
+
+    alternating = _parse_alternating_line_format(normalized)
+    if alternating is not None:
+        return alternating
+
+    english_lines = [line.strip() for line in normalized.splitlines() if line.strip()]
+    return {
+        "english_content": "\n".join(english_lines),
+        "korean_content": "",
+        "line_pairs": [],
+    }
+
+
+def _get_text_neighbors(file_path: Path) -> tuple[str | None, str | None]:
+    siblings = sorted(
+        [child for child in file_path.parent.iterdir() if child.is_file() and child.suffix.lower() == ".txt"],
+        key=lambda child: child.name.lower(),
     )
+    try:
+        current_index = siblings.index(file_path)
+    except ValueError:
+        return None, None
 
-@app.route('/practice/<path:text_path>')
-def practice(text_path):
-    base_path = os.path.abspath(TEXTS_BASE_DIR)
-    file_path = os.path.abspath(os.path.join(base_path, text_path))
-    if not file_path.startswith(base_path) or not os.path.isfile(file_path):
+    previous_path = siblings[current_index - 1] if current_index > 0 else None
+    next_path = siblings[current_index + 1] if current_index < len(siblings) - 1 else None
+
+    previous_relative = _normalize_relative(previous_path) if previous_path else None
+    next_relative = _normalize_relative(next_path) if next_path else None
+    return previous_relative, next_relative
+
+
+def _load_text_payload(text_path: str) -> dict[str, str | None]:
+    file_path = _resolve_under(TEXTS_BASE_DIR, text_path)
+    if not file_path.is_file():
         abort(404, "File not found")
 
-    # --- Start: Find previous/next text logic ---
-    next_text_path = None
-    previous_text_path = None
     try:
-        dir_path = os.path.dirname(file_path)
-        relative_dir_path = os.path.dirname(text_path)
-        
-        all_files = sorted([f for f in os.listdir(dir_path) if f.endswith('.txt')])
-        
-        current_filename = os.path.basename(file_path)
-        current_index = all_files.index(current_filename)
-        
-        # Get next text path
-        if current_index < len(all_files) - 1:
-            next_filename = all_files[current_index + 1]
-            next_text_path = os.path.join(relative_dir_path, next_filename) if relative_dir_path else next_filename
-        
-        # Get previous text path
-        if current_index > 0:
-            previous_filename = all_files[current_index - 1]
-            previous_text_path = os.path.join(relative_dir_path, previous_filename) if relative_dir_path else previous_filename
+        raw_text = file_path.read_text(encoding="utf-8")
+    except OSError as exc:
+        abort(500, f"Error reading file: {exc}")
 
-    except (OSError, ValueError):
-        # If directory listing or index finding fails, paths remain None
-        pass
-    # --- End: Find previous/next text logic ---
+    parsed_content = _parse_text_content(raw_text)
+    previous_text_path, next_text_path = _get_text_neighbors(file_path)
+    parent_dir = file_path.parent
 
-    # --- Get parent directory path for "Back to List" link ---
-    parent_dir_path = os.path.dirname(text_path)
+    return {
+        "title": file_path.stem,
+        "text_path": _normalize_relative(file_path),
+        "english_content": parsed_content["english_content"],
+        "korean_content": parsed_content["korean_content"],
+        "line_pairs": parsed_content["line_pairs"],
+        "previous_text_path": previous_text_path,
+        "next_text_path": next_text_path,
+        "parent_dir_path": _normalize_relative(parent_dir),
+    }
 
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            full_content = f.read().strip()
-    except Exception as e:
-        abort(500, f"Error reading file: {e}")
 
-    english_content = full_content
-    korean_content = ""
-    if '--korean--' in full_content:
-        parts = full_content.split('--korean--', 1)
-        english_content = parts[0].strip()
-        korean_content = parts[1].strip()
+def _get_random_image_url() -> str | None:
+    if not IMAGE_DIR.exists():
+        return None
 
-    title = os.path.splitext(os.path.basename(text_path))[0]
-    
-    random_image = get_random_image()
-            
-    return render_template(
-        'practice.html', 
-        title=title, 
-        english_content=english_content,
-        korean_content=korean_content,
-        random_image=random_image,
-        next_text_path=next_text_path,
-        previous_text_path=previous_text_path,
-        parent_dir_path=parent_dir_path
+    image_files = [image.name for image in IMAGE_DIR.iterdir() if image.is_file()]
+    if not image_files:
+        return None
+
+    return url_for("static", filename=f"img/{random.choice(image_files)}")
+
+
+def _render_shell() -> str:
+    return render_template("app.html")
+
+
+@app.route("/")
+@app.route("/select/")
+@app.route("/select/<path:subdirectory>")
+@app.route("/study/<path:text_path>")
+@app.route("/practice/<path:text_path>")
+@app.route("/fill/<path:text_path>")
+def shell(subdirectory: str | None = None, text_path: str | None = None) -> str:
+    return _render_shell()
+
+
+@app.get("/api/browse/")
+@app.get("/api/browse/<path:subdirectory>")
+def browse_api(subdirectory: str = ""):
+    breadcrumbs, parent_path = _build_breadcrumbs(subdirectory)
+    return jsonify(
+        {
+            "current_path": subdirectory,
+            "parent_path": parent_path,
+            "breadcrumbs": breadcrumbs,
+            "items": _list_directory(subdirectory),
+            "random_image_url": _get_random_image_url(),
+        }
     )
 
-@app.route('/fill/<path:text_path>')
-def fill(text_path):
-    base_path = os.path.abspath(TEXTS_BASE_DIR)
-    file_path = os.path.abspath(os.path.join(base_path, text_path))
-    if not file_path.startswith(base_path) or not os.path.isfile(file_path):
-        abort(404, "File not found")
 
-    # --- Start: Find previous/next text logic ---
-    next_text_path = None
-    previous_text_path = None
-    try:
-        dir_path = os.path.dirname(file_path)
-        relative_dir_path = os.path.dirname(text_path)
-        
-        all_files = sorted([f for f in os.listdir(dir_path) if f.endswith('.txt')])
-        
-        current_filename = os.path.basename(file_path)
-        current_index = all_files.index(current_filename)
-        
-        # Get next text path
-        if current_index < len(all_files) - 1:
-            next_filename = all_files[current_index + 1]
-            next_text_path = os.path.join(relative_dir_path, next_filename) if relative_dir_path else next_filename
-        
-        # Get previous text path
-        if current_index > 0:
-            previous_filename = all_files[current_index - 1]
-            previous_text_path = os.path.join(relative_dir_path, previous_filename) if relative_dir_path else previous_filename
+@app.get("/api/text/<path:text_path>")
+def text_api(text_path: str):
+    payload = _load_text_payload(text_path)
+    payload["random_image_url"] = _get_random_image_url()
+    return jsonify(payload)
 
-    except (OSError, ValueError):
-        # If directory listing or index finding fails, paths remain None
-        pass
-    # --- End: Find previous/next text logic ---
 
-    # --- Get parent directory path for "Back to List" link ---
-    parent_dir_path = os.path.dirname(text_path)
-
-    try:
-        with open(file_path, 'r', encoding='utf-8') as f:
-            full_content = f.read().strip()
-    except Exception as e:
-        abort(500, f"Error reading file: {e}")
-
-    english_content = full_content
-    korean_content = ""
-    if '--korean--' in full_content:
-        parts = full_content.split('--korean--', 1)
-        english_content = parts[0].strip()
-        korean_content = parts[1].strip()
-
-    title = os.path.splitext(os.path.basename(text_path))[0]
-    
-    random_image = get_random_image()
-            
-    return render_template(
-        'fill.html', 
-        title=title, 
-        text_content=english_content, # Pass english part as text_content
-        korean_content=korean_content, # Pass korean part
-        random_image=random_image,
-        next_text_path=next_text_path,
-        previous_text_path=previous_text_path,
-        parent_dir_path=parent_dir_path
-    )
-
-if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5000,debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)

@@ -1,0 +1,22 @@
+The emergence of the **social** **sciences** in the nineteenth century and the ability to work with large datasets created demand for new ways of **visualizing** **information**.
+19세기의 사회 과학의 출현과 대규모 데이터 세트를 가지고 작업할 수 있는 능력은 정보를 시각화하는 새로운 방식에 대한 수요를 만들어 냈다.
+Processed numerical **information** was best expressed in tables, **charts**, and **graphs**.
+가공된 수치 정보는 표, 도표, 그래프에서 가장 잘 표현되었다.
+**Mathematics**, natural **sciences**, and **social** **sciences** that employed statistics were at the forefront of the **development** of **charts** and **graphs**.
+통계를 활용한 수학, 자연 과학, 사회 과학은 도표와 그래프 발전의 선두에 있었다.
+**History** was a **consumer**, not a designer, of most of these new **visualizations** — and mostly a sparing **consumer** at that, since economic and **social** **history** lagged behind political **history** as an area of research.
+역사학은 이러한 새로운 시각화의 대부분에 있어 설계자가 아니라 소비자였으며, 그것도 대체로 절제된 소비자였는데, 이는 경제사와 사회사는 연구 분야로서 정치사보다 뒤처져 있었기 때문이었다.
+Simple **charts** and **graphs** were not difficult to interpret, and their visual **conventions** **became** part of what any ordinary reader would be expected to follow.
+단순한 도표와 그래프는 해석하기 어렵지 않았고, 그것들의 시각적인 표현 방법은 어떤 평범한 독자라도 따라올 수 있으리라 기대되는 것의 일부가 되었다.
+As **statistical** **analysis** **became** more **sophisticated**, the **visualizations** that resulted **became** more and more central to the argument.
+통계 분석이 점점 더 정교해지면서, 그 결과로 만들어진 시각화는 논증에서 점점 더 핵심적인 것이 되었다.
+In some cases, the **visualization** made **interpretation** possible.
+어떤 경우에는, 시각화가 해석을 가능하게 했다.
+These success stories **demonstrated** the worth of **statistical** **analysis** and **visualization**.
+이러한 성공 사례들은 통계학적 분석과 시각화의 가치를 입증했다.
+Perhaps the most notable example is John Snow's map of the incidence of cholera in an 1854 London outbreak, which helped plot the source of the outbreak at a single water pump in the **neighborhood**.
+아마도 가장 주목할 만한 예는 1854년 런던에서 발병한 콜레라 사건을 나타낸 John Snow의 지도일 텐데, 이것은 발병의 근원을 그 동네에 있는 한 개의 물 펌프로 (지도에) 표시하는 데 도움이 되었다.
+Snow's cholera map showed that **visualizations** could serve as both narrative and **analysis**.
+Snow의 콜레라 지도는 시각화가 서사와 분석의 기능을 둘 다 할 수 있었음을 보여 주었다.
+Authors began to experiment with ways of using visual clues to tell complex stories about events, increasing the amount of **information** that could be conveyed in a small space and thereby overcoming the limitations of two dimensions in print.
+작가들은 사건에 대한 복잡한 이야기를 전달하기 위해 시각적 단서를 활용하는 방법을 실험하기 시작했고, 이는 작은 공간에서 전달될 수 있는 정보량을 증가시켜 그 결과 인쇄물이 갖는 이차원성의 한계를 극복했다.

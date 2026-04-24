@@ -1,0 +1,16 @@
+When **self**­**experimentation** and **conventional** **experiments** are both possible, the **difference** between them often **resembles** the **difference** between learning and showing: **Self**­**experiments** are better for **discovery** but worse for **convincing** **others** that the **solution** is helpful or the answer is correct.
+자가 실험과 전통적 실험이 모두 가능할 때, 그 둘 사이의 차이는 흔히 배우기와 보여주기의 차이와 비슷하다. 즉, '자가 실험은 발견에는 더 유리하지만' 그 해결책이 유용하다거나 그 답이 옳다는 것을 '다른 사람들에게 납득시키는 데는 더 불리하다.'
+Of course, most **scientists** want to do both — discover **something** and convince **others** of their **discovery**.
+물론, 대부분의 과학자는 무언가를 발견하는 것 '그리고' 그 발견을 다른 사람들에게 납득시키는 것 둘 다 하기를 원한다.
+Thus, **psychologists** should consider doing both **self**­**experiments** and **conventional** ones.
+그러므로, 심리학자들은 자가 실험과 전통적 실험 둘 다를 하는 것을 고려해야 한다.
+The best use of **resources** may often be **self**­**experiments** followed by **conventional** ones.
+아마 자원을 가장 잘 사용하는 흔한 방법은 자가 실험 뒤에 전통 실험이 뒤따르는 것이다.
+The **researcher** begins with **self**­**experiments** that, if all goes well, find large effects and / or generate and eliminate many **hypotheses**.
+만약 모든 것이 잘 진행된다면, 연구자는 큰 효과를 발견하고 / 또는 많은 가설을 생성하고 제거하는 자가 실험으로 시작한다.
+This **exploratory** and theory­building phase lasts until a **convenient** **solution** or large effect is found.
+탐색적이며 이론을 구축하는 이러한 단계는 손쉬운 해결책이나 큰 효과가 발견될 때까지 계속된다.
+Then the **researcher** uses **self**­**experiments** to find the **procedural** **parameters** (e.g., duration, time of day, intensity) that optimize the **solution** or maximize the effect.
+그런 다음 연구자는 해결책을 최적화하거나 효과를 극대화하는 절차적 매개 변수들(예를 들면, 지속 시간, 시간대, 강도)을 찾기 위하여 자가 실험을 이용한다.
+Only then would the **researcher** begin **conventional** **experiments**, using the optimized **parameters**.
+그러고 나서야 비로소 연구자는 그 최적화된 매개 변수를 사용하여, 전통적 실험을 시작하게 된다.

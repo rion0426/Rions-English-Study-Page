@@ -1,0 +1,18 @@
+Rooms have their own "**sound**" because they impose their own **characteristics** on audio signals **contained** within them.
+방은 자체적인 '소리'를 갖는데 이는 그것(방)이 그 안에 담긴 오디오 신호에 자체 특성을 부여하기 때문이다.
+It's actually kind of **remarkable**.
+이것은 사실상 꽤 놀랍다.
+**Sound** such as music coming from **headphones** **will** **sound** the same **everywhere**.
+헤드폰에서 나오는 음악과 같은 소리는 어디서나 똑같이 들릴 것이다.
+No matter what **acoustical** **environment** we are in, the **headphones** **sound** the same.
+우리가 어떤 음향 환경에 있든, 헤드폰은 똑같이 들린다.
+That's because the **room** is not part of that playback **signal** path.
+이는 방이 재생 신호 경로의 일부가 아니기 때문이다.
+But **sound** such as music from a **loudspeaker** **will** **sound** **different** in every **acoustical** **environment**.
+하지만 스피커에서 나오는 음악과 같은 소리는 음향 환경마다 다르게 들린다.
+Every **room** where you set up the **loudspeaker** **will** cause the **sound** you hear to be **different** — **sometimes** **dramatically** **different**; that is because the **room** is now part of the **signal** path.
+당신이 스피커를 설치하는 모든 방이 당신이 듣는 소리를 모두 다르게 만들 것이며, 때로는 극적으로 달라질 것이다. 이는 그 방이 신호 경로의 일부가 되기 때문이다.
+Also, in the same **room**, the **loudspeaker** **will** **sound** **different** when it is placed in **different** **locations** in the **room** and it **will** **sound** **different** as you move around the **room**.
+또한, 같은 방에서도, 스피커가 그 방의 다른 위치에 놓여있을 때 다르게 들릴 것이며, 당신이 방 안에서 돌아다니면 (또) 다르게 들릴 것이다.
+**Similarly**, when you are **recording** a musical **instrument**, the **sound** you receive at the **microphone** **will** be **different** in every **room** and the recorded **sound** **will** **sound** **different** as the **instrument** or the **microphone** is moved.
+마찬가지로, 당신이 악기를 녹음하고 있을 때, 마이크로 수신되는 소리는 방마다 달라질 것이며, 악기나 마이크의 위치가 옮겨지면 녹음된 소리는 다르게 들릴 것이다.

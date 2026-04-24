@@ -1,0 +1,14 @@
+One cannot validly argue that **humans** are **morally** **superior** **beings** on the ground that they possess, while **others** lack, the **capacities** of a **moral** agent.
+인간이 도덕적 행위자의 능력을 지니고 있는 반면, 다른 존재들은 (그러한 능력이) 부족하다는 근거로 인간이 도덕적으로 우월한 존재라고 타당하게 주장할 수 없다.
+The reason is that, as far as **moral** **standards** are **concerned**, only **beings** that have the **capacities** of a **moral** agent can **meaningfully** be said to be either **morally** good or **morally** bad.
+그 이유는, 도덕적 기준에 관해서는, 도덕적 행위자의 능력을 지닌 존재만이 유의미하게 도덕적으로 선하거나 도덕적으로 악하다고 말할 수 있기 때문이다.
+Only **moral** **agents** can be **judged** to be **morally** better or worse than **others**, and the **others** in question must be **moral** **agents** **themselves**.
+오직 도덕적 행위자만이 다른 존재들보다 도덕적으로 더 낫거나 더 나쁘다고 판단될 수 있으며, (비교의) 대상이 되는 다른 존재들도 그 자체로 도덕적 행위자여야 한다.
+**Judgments** of **moral** **superiority** are based on the **comparative** merits or **deficiencies** of the **entities** being **judged**, and these merits and **deficiencies** are all **moral** ones, that is, ones **determined** by **moral** **standards**.
+도덕적 우월성에 대한 판단은 (도덕적) 판단 대상이 되는 존재들의 상대적인 장점이나 결함에 근거하며, 이러한 장점과 결함은 모두 도덕적인 것들, 즉, 도덕적 기준에 의해 결정되는 것들이다.
+One entity is correctly **judged** **morally** **superior** to another if it is the case that, when valid **moral** **standards** are applied to both **entities**, the first fulfills them to a greater degree than the second.
+충족시키다 =moral standards 타당한 도덕적 기준을 두 존재 모두에게 적용했을 때, 첫 번째 존재가 두 번째 존재보다 그것(기준)들을 더 높은 정도로 충족하는 경우에만, 앞의 존재가 또 다른 존재보다 도덕적으로 우월하다고 정확하게 판단된다.
+Both **entities**, therefore, must fall within the range of **application** of **moral** **standards**.
+따라서, 두 존재 모두 도덕적 기준의 적용 범위 안에 속해야 한다.
+This would not be the case, however, if **humans** were being **judged** **superior** to animals and plants, since the latter are not **moral** **agents**.
+그러나, 인간이 동물이나 식물보다 우월하다고 판단되는 경우에는 이것이 성립되지 않는데, 왜냐하면 후자들은 도덕적 행위자가 아니기 때문이다.
