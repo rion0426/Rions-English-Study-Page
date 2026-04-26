@@ -1,0 +1,16 @@
+Conditioned Place Preference is a way of finding out what animals want.
+조건부 장소 선호도는 동물들이 무엇을 원하는지 알아내는 하나의 방법이다.
+**Researchers** **train** them to associate one place with an experience such as food or a loud **noise** and another place with something **completely** different, usually where nothing happens.
+연구자들은 그것들이 한 장소를 음식이나 시끄러운 소리와 같은 경험과 연관시키고 또 다른 장소를 완벽히 다른 어떤 것과 연관시키도록 훈련시키는데 대개 그곳에서는 아무것도 일어나지 않는다.
+The two places are made **obviously** **different** to make it as easy as possible for the animal to associate each place with what **happened** to it there.
+그 두 장소는 그 동물이 각 장소를 거기에서 그것에게 일어난 일과 연관시키는 것을 가능한 한 쉽게 만들기 위해 명백히 다르게 만들어 진다.
+The animal's preference for being in one place or another is **measured** both before and after its experiences in the two places.
+한 장소나 다른 장소에 있는 것에 대한 그 동물의 선호도는 두 장소에서 경험하기 전과 후에 모두 측정된다.
+If there is a **shift** in where the animal chooses to **spend** its time for the reward, this suggests that it liked the experience and is trying to **repeat** it.
+만약 동물이 보상을 위해 어디에서 시간을 보내기로 선택하는지에 변화가 있다면, 이것은 그것이 그 경험을 좋아했고 그것을 반복하려고 노력하는 중이라는 것을 시사한다.
+Conversely, if it now **avoids** the place the stimulus **appeared** and starts to prefer the place it did not **experience** it, then this suggests that it found the stimulus **unpleasant**.
+반대로, 만약 그것이 이제 자극이 나타났던 장소를 피하고 그것이 그것을 경험하지 않았던 장소를 선호하기 시작한다면, 그러면 이것은 그것이 그 자극을 불쾌하게 느꼈다는 것을 시사한다.
+For example, mice with cancer show a preference for the place where they have been **given** morphine, a drug used to **relieve** pain, rather than where they have **received** saline whereas healthy mice **developed** no such preference.
+예를 들어, 암에 걸린 쥐가 식염수를 받아 왔었던 곳보다 통증을 완 화시키는 데 사용되는 약인 모르핀이 주어졌었던 장소에 대한 선호를 보여 준 반면, 건강한 쥐는 그러한 선호가 생기지 않았다.
+This suggests that the mice with cancer wanted the morphine.
+이것은 암에 걸린 쥐가 그 모르핀을 원했음을 시사한다.

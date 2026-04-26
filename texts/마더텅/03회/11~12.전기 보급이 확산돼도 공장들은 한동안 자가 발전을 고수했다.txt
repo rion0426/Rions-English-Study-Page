@@ -1,0 +1,22 @@
+In 1900, at the close of the first decade in which electric systems had become a **practical** **alternative** for manufacturers, less than 5 percent of the power used in factories came from electricity.
+전력 체계가 제조업자를 위한 실용적인 대안으로 자리 잡은 첫 10년이 끝날 무렵인 1900년에, 공장에서 사용되는 동력의 5% 미만이 전 기에서 왔다.
+But the technological **advances** of **suppliers** made electric systems and electric motors ever more **affordable** and **reliable**, and the suppliers' **intensive** marketing programs also sped the **adoption** of the new technology.
+그러나 (전력) 공급자의 기술적인 진보가 전력 체계와 전기 모터를 유례없이 저렴하면서도 신뢰할 만하도록 만들었고, 공급 자의 집중적인 홍보 활동 또한 이 새로운 기술의 수용을 촉진시켰다.
+Further **accelerating** the shift was the rapid **expansion** in the number of skilled electrical engineers, who **provided** the expertise needed to **install** and run the new systems.
+변화를 더욱 가속화한 것은 숙련된 전기 기술자 수의 급격한 증가였 는데, 이들은 새로운 (전력) 체계를 설치하고 운영하는 데 필요한 전문 지식을 제공했다.
+In short order, electric power had gone from exotic to **commonplace**.
+순식간에, 전력은 생소한 것에서 일상적인 것으로 바뀌었다.
+But one thing didn't change.
+하지만 한 가지는 변하지 않았다.
+Factories **continued** to build their own power-supply systems on their own premises.
+공장들은 계속해서 공장 부지에 자체 전력 공급 시스템을 구축했다.
+Few manufacturers **considered** buying electricity from the small central stations.
+소규모 중앙 발전소에서 전기를 구 매하는 것을 고려하는 제조업자는 거의 없었다.
+**Designed** to **supply** lighting to local homes and shops, the central stations had **neither** the size nor the skill to serve the needs of big factories.
+지역의 가정과 상점에 조명을 공급하기 위해 설계되었기 때문에, 중앙 발전소는 대규모 공장의 수요를 충족시킬 만한 규모도 기술도 갖추지 못했다.
+And the factory owners, having always **supplied** their own power, were loath to **assign** such a **critical** **function** to an outsider.
+그리고 공장 소유주들은, 항상 자체적으로 동력을 공급해 왔기 때문에, 그런 중요한 기능을 외부인에게 맡기려고 했다(→ 맡기는 것을 꺼렸다).
+They knew that a glitch in power supply would bring their operations to a halt and that a lot of glitches — might well mean **bankruptcy**.
+그들은 전력 공급에서의 결함 하나가 운영을 중지시킬 수 있으며, 많은 결함은 반드시 파산을 초래한다는 것을 알고 있었다.
+As the new century began, a survey found that there were already 50,000 **private** electric plants in operation, far **surpassing** the 3,600 central stations.
+새로운 세기가 시작될 때, 한 조사에서 이미 50,000개의 민간 발전소가 운영되고 있 었으며, (이는) 중앙 발전소 3,600개를 훨씬 초과한다는 것이 밝혀졌다.

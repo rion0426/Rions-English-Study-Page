@@ -1,0 +1,14 @@
+To determine the mass of my bowling ball, I might put it onto a **balance** and **compare** it with a **known** mass, such as a number of **metal** cubes each **weighing** 1, 10, or 100 grams.
+볼링공 질량을 측정하기 위해, 나는 그것을 저울에 올려놓고 각 1g, 10g, 또는 100g이 나가는 여러 개의 금속 큐브 같은 이미 알고 있는 질량과 그것을 비교할 수 있다.
+Things get much more **complicated** if I want to know the mass of a **distant** star.
+만약 내가 먼 별의 질량을 알고 싶다면 상황은 훨씬 더 복잡해진다.
+How do I **measure** it?
+나는 어떻게 그것을 측정할까?
+We can **roughly** say that measuring the mass of a star **involves** various theories.
+우리 는 별의 질량을 측정하는 것은 다양한 이론을 포함한다고 대략적으로 말할 수 있다.
+If we want to measure the mass of a binary star, we first **determine** a **center** of mass between the two stars, then their **distance** from that center which we can then use, **together** with a **value** for the **period** and a certain instance of Kepler's Third Law, to calculate the mass.
+우리가 쌍성의 질량을 측정하기를 원한다면, 질량을 계산하기 위해 우리는 먼저 두 별들 사이의 질량 중심을, 그 다음에 우리가 그제서야 사용할 수 있는 그 중심으로부터 떨어진 그것들의 거리를 공전 주기의 값과 케플러 제3 법칙의 특정한 사례를 가지고 측정한다.
+In other words, in order to "measure" the star mass, we measure other quantities and use those values, **together** with certain equations, to calculate the mass.
+다시 말해서, 별의 질량을 ‘측정’하기 위해서 우리는 다양한 수치들을 측정하고 그 값들을 특정 방정식들과 함께 사용하여 질량을 계산한다.
+**Measurement** is not a **simple** and unmediated **estimation** of **independently** **existing** properties, but a **determination** of certain **magnitudes** before the **background** of a number of **accepted** theories.
+측정은 독립적으로 존재하는 값들의 단순하고 중재되지 않은 측정이 아니라, 이미 정립된 여러 이론들을 바탕으로 특정 크기들을 계산하는 것이다.

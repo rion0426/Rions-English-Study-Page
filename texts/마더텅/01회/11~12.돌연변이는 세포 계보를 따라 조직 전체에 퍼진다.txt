@@ -1,0 +1,26 @@
+In each round of genome copying in our body, there is still about a 70 percent **chance** that at **least** one pair of chromosomes will have an error.
+우리 몸속 게놈 복제의 각 과정마다, 적어도 한 쌍의 염색체들이 오류를 가질 확률이 여전히 약 70%이다.
+With each round of genome copying, errors accumulate.
+게놈 복제의 각 과정마다, 오류 들이 쌓인다.
+This is **similar** to **alterations** in **medieval** books.
+이것은 중세 서적에 있어서의 변화와 유사하다.
+Each time a copy was made by hand, some changes were **introduced** **accidentally**; as changes stacked up, the copies may have acquired meanings at **variance** with the **original**.
+하나의 복사본이 사람 손으로 만들어질 때마다, 일부 변화들이 우연히 도입 되었고, 변화들이 쌓이면서, 복사본은 원본과 불일치하는 의미를 축적했을 것이다.
+Similarly, genomes that have **undergone** more copying processes will have **gathered** more mistakes.
+마찬가지로, 더 많은 복제 과정들을 거친 게놈은 더 많 은 실수들을 축적하게 될 것이다.
+To make things worse, mutations may **damage** genes **responsible** for error checking and repair of genomes, further **accelerating** the introduction of mutations.
+설상가상으로, 변이들은 게놈의 오류 확인과 복구를 책임지는 유전자를 훼손해 변이들의 도입을 더욱 가속할 수도 있다.
+Most genome mutations do not have any **noticeable** **effects**.
+대부분의 게놈 변이들은 어떠한 뚜렷한 영향이 없다.
+It is just like changing the i for a y in "kingdom" would not distort the word's **readability**.
+그것은 마치 ‘kingdom’에서 ‘i’를 ‘y’로 변경하는 것이 그 단어의 가독성을 보장하지 (→왜곡하지) 않는 것과 같다.
+But sometimes a mutation to a human gene **results** in, for example, an eye whose iris is of two different colors.
+그러나 예를 들어, 때때로 인간 유전자에 대한 변이는 홍채가 두 가지 다른 색을 띠는 눈을 초래하기도 한 다.
+Similarly, **almost** everyone has birthmarks, which are due to mutations that **occurred** as our body's cells multiplied to form skin.
+마찬가지로, 거의 모두가 모반이 있는데, 이는 우리 몸의 세포가 피부를 형성하기 위하여 증식하면서 발생한 변이들 때문이다.
+If mutations are changes to the genome of one particular cell, how can a patch of cells in an iris or a whole patch of skin, **consisting** of many individual cells, be **affected** **simultaneously**?
+만약 변이들이 하나의 특정 세포의 게놈에 대한 변화라면, 많은 개별적인 세포들로 구성된 홍채의 세포 집단이나 피부 전체 세포 집단이 어떻 게 동시에 영향을 받을 수 있을까?
+The answer lies in the cell lineage, the **developmental** history of a tissue from **particular** cells through to their fully **differentiated** state.
+그 대답은 세포 계보, 즉 특정 세포에서 그들의 완전히 차별화된 상태까지의 조직 발달 변천에 있다.
+If the mutation **occurred** **early** on in the lineage of the developing iris, then all cells in that patch have **inherited** that change.
+만약 발달 중인 홍채의 계보 초기에 변이가 발생했다면, 그렇다면 그 세포 집단의 모든 세포는 그 변화를 물려받아 왔을 것이다.

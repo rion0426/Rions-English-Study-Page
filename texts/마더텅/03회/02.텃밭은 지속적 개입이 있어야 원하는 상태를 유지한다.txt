@@ -1,0 +1,12 @@
+The concept of ecosystem states should be **familiar** to anyone with a home vegetable garden.
+생태계 상태라는 개념은 가정용 텃밭이 있는 사람이라면 누구나 익숙할 것이다.
+The garden is a small ecosystem that the **grower** attempts to **keep** in a specific **state**, namely the **maximization** of fruit and vegetable **production**.
+텃밭은 재배자가 특정한 상태, 즉 과일과 채소 생산의 극 대화를 유지하려고 애쓰는 작은 생태계이다.
+To **achieve** this, the grower is almost always **intervening** in the dynamics of the ecosystem; they remove **unwanted** plants that begin to grow and perhaps **spray** insecticides and **fence** off the patch to stop insects and other animals from **consuming** the vegetables.
+이를 달성하기 위해, 재배자는 거의 항상 생태계의 역학 관계에 개입한다. 즉, 자라나기 시작 하는 원치 않는 식물을 제거하고, 곤충과 다른 동물들이 채소를 먹는 것을 막기 위해 어쩌면 살충제를 뿌리고 밭에 울타리를 칠 수도 있 다.
+Since **maximizing** vegetable growth is an inherently **unstable** state for the ecosystem, the grower is **effectively** **keeping** the ball on a **slope**.
+채소의 성장을 극대화하는 것은 생태계에게는 본질적으로 불안정한 상태이기 때문에, 재배자는 사실상 경사면 위에 공을 잡아 두고 있는 것이다.
+If the grower stops **intervening**, even for a day, the ecosystem, that small patch of ground, will **naturally** begin to shift to a more stable state.
+만약, 단 하루만이라도, 재배자가 개입을 멈춘다면, 그 생태계, 즉 그 땅의 작은 밭은 자연히 더 안정된 상태로 변화하기 시 작할 것이다.
+Vegetables may still grow, but yield will almost **certainly** be lower as other plants crowd out the vegetables and **wildlife** **consume** the produce.
+채소는 여전히 자라겠지만, 다른 식물이 채소를 밀어내고 야생 동물이 작물을 먹기 때문에 수확량은 거의 틀림없이 더 적을 것이다.

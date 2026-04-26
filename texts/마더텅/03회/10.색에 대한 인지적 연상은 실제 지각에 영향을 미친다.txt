@@ -1,0 +1,20 @@
+There is research that supports the idea that **cognitive** factors **influence** the phenomenology of the **perceived** world.
+인지적 요인들이 지각된 세계의 현상학에 영향을 미친다는 생각을 뒷받침하는 연구가 있다.
+Delk and Fillenbaum asked **participants** to match the color of figures with the color of their **background**.
+Delk와 Fillenbaum은 참가자들에게 형상들의 색상을 배경 색상과 맞추도록 요청했다.
+Some of the figures **depicted** objects **associated** with a **particular** color.
+몇몇 형상들은 특정 색상과 연관된 물체들을 묘사했다.
+These **included** **typically** red objects such as an apple, lips, and a **symbolic** heart.
+그것들은 사과, 입술, 상징적인 하트 모양 과 같이 전형적인 빨간색 물체를 포함했다.
+Other objects were **presented** that are not usually **associated** with red, such as a **mushroom** or a bell.
+버섯이나 종과 같이 빨간색과 일반적으로 연관이 되지 않는 다른 물체들도 제시되었다.
+However, all the figures were made out of the same red-orange cardboard.
+그러 나, 모든 형상들은 동일한 다홍색 판지로 만들어졌다.
+**Participants** then had to match the figure to a **background** **varying** from dark to light red.
+그러고 나서 참가자들은 그 형상을 진한 빨간색에서 연한 빨간색까지 다양한 배경 색과 맞춰야 했다.
+They had to make the **background** color match the color of the figures.
+그들은 배경색이 형상들의 색과 일치하게 해야 했다.
+The **researchers** found that red-associated objects **required** more red in the background to be **judged** a match than did the objects that are not associated with the color red.
+연구자들은 빨간색과 연관된 물체들이 빨간색과 연관이 없는 물 체가 그러한 것보다 배경과 일치한다고 판단되기 위해서 배경에서 더 빨간 색을 요구한다는 것을 발견했다.
+This **implies** that the **cognitive** association of objects to color **influences** how we **perceive** that color.
+이것은 색과 물체의 인지적 연관성이 우리가 그 색을 어떻게 지각하는가에 영향을 미친다는 것을 함의한다.

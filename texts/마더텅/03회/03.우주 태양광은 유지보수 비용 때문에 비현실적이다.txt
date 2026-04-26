@@ -1,0 +1,12 @@
+It's conceivable that in a world where solar panels are **incredibly** **expensive** and there's an extreme **collapse** in the cost of launching objects to space, you might want to **maximize** your **energy** per panel by putting them above the **atmosphere**.
+태양광 패널이 엄청나게 비싸고 우주로 물체를 발사하는 비용에 극단적인 폭락이 있는 세상에서, 여러분이 패널을 대기권 위에 설치하여 패널당 에너지를 극대화하고 싶어 할 수도 있다고 생각할 수 있다.
+But panels are cheap, and even if we **assume** pretty steep drops in the cost of space launch, the numbers don't add up.
+그러나 패널은 저렴하고, 우리가 우주 발사 비용의 상당히 가파른 하 락을 가정하더라도, 계산이 맞지 않는다.
+This becomes **especially** clear when you start to think about maintenance.
+여러분이 유지보수에 대해 생각하기 시작하면 이것은 특히 분명해진다.
+Try to **imagine** acres upon acres of glass panels in space, **regularly** hit by intense **radiation** and bits of space debris while **enduring** the **extreme** heat of constant sunlight.
+우주에 수 에이커에 달하 는 유리 패널들이 끊임없는 햇빛의 극심한 열을 견뎌 내며 강렬한 방사선과 우주 파편에 정기적으로 충격을 받는 상상을 해보라.
+They'll have to be repaired and cared for either by astronauts or an army of **advanced** robots.
+그것들 은 우주 비행사나 첨단 로봇 군단에 의해 수리되고 관리되어야 할 것이다.
+Solar panels in Australia can be **cleaned** by a teenager with a spray bottle and a cloth.
+호주에 있는 태양광 패널은 분무기와 헝겊으로 십 대 청소년에 의해 청소될 수 있다.
