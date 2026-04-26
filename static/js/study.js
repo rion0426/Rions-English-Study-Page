@@ -6,6 +6,11 @@
         fillPreview: false,
         fillFirstLetter: false,
     };
+    const studyProgressStorageKey = "englishStudyProgress";
+    const studyPageContextKeys = {
+        previousPage: "englishStudyPreviousPage",
+        previousStudyTextPath: "englishStudyPreviousStudyTextPath",
+    };
 
     function loadSettings() {
         try {
@@ -18,6 +23,29 @@
 
     function saveSettings(settings) {
         localStorage.setItem("englishStudySettings", JSON.stringify(settings));
+    }
+
+    function loadStudyProgress() {
+        try {
+            return JSON.parse(sessionStorage.getItem(studyProgressStorageKey) || "{}");
+        } catch (error) {
+            return {};
+        }
+    }
+
+    function saveStudyProgress(allProgress) {
+        sessionStorage.setItem(studyProgressStorageKey, JSON.stringify(allProgress));
+    }
+
+    function loadPreviousStudyContext() {
+        try {
+            return {
+                page: sessionStorage.getItem(studyPageContextKeys.previousPage) || "",
+                textPath: sessionStorage.getItem(studyPageContextKeys.previousStudyTextPath) || "",
+            };
+        } catch (error) {
+            return { page: "", textPath: "" };
+        }
     }
 
     function normalizeStudyMode(mode) {
@@ -168,9 +196,30 @@
                 mode: normalizeStudyMode(studyData.mode),
                 settings: loadSettings(),
                 koreanVisible: false,
+                progress: loadStudyProgress(),
             };
+            const previousContext = loadPreviousStudyContext();
 
             let cleanup = () => {};
+            let persistCurrentMode = () => {};
+
+            if (previousContext.page !== "study" || previousContext.textPath !== state.text.text_path) {
+                delete state.progress[state.text.text_path];
+                saveStudyProgress(state.progress);
+            }
+
+            function getTextProgress() {
+                return state.progress[state.text.text_path] || {};
+            }
+
+            function saveTextProgress(mode, payload) {
+                const textProgress = getTextProgress();
+                state.progress[state.text.text_path] = {
+                    ...textProgress,
+                    [mode]: payload,
+                };
+                saveStudyProgress(state.progress);
+            }
 
             function applyKoreanVisibility(hasKorean) {
                 document.body.classList.toggle("korean-visible", Boolean(hasKorean && state.koreanVisible));
@@ -223,6 +272,10 @@
                 const characters = [];
                 const koreanSentences = [];
                 const englishBoundaries = getEnglishLineBoundaries(linePairs, englishText);
+                const practiceProgress = getTextProgress().practice || {};
+                const typedCharacters = Array.isArray(practiceProgress.typedCharacters)
+                    ? [...practiceProgress.typedCharacters]
+                    : [];
                 let currentIndex = 0;
                 let cursorFrame = null;
                 let resizeObserver = null;
@@ -386,11 +439,20 @@
                     });
                 }
 
+                function persistPracticeProgress() {
+                    saveTextProgress("practice", {
+                        currentIndex,
+                        typedCharacters,
+                        koreanVisible: state.koreanVisible,
+                    });
+                }
+
                 function refreshPracticeView() {
                     document.body.classList.toggle("hide-upcoming", !state.settings.practiceReveal);
                     updateStatus();
                     updateKoreanHighlight();
                     updateCursor(true);
+                    persistPracticeProgress();
                 }
 
                 function isSkippable(index) {
@@ -419,6 +481,11 @@
                                 state.koreanVisible = !state.koreanVisible;
                                 applyKoreanVisibility(koreanText);
                                 scheduleCursorUpdate();
+                                saveTextProgress("practice", {
+                                    currentIndex,
+                                    typedCharacters,
+                                    koreanVisible: state.koreanVisible,
+                                });
                             }
                             return;
                         }
@@ -475,6 +542,7 @@
                                 const span = characters[currentIndex];
                                 span.classList.remove("correct", "incorrect");
                                 span.textContent = englishText[currentIndex];
+                                typedCharacters[currentIndex] = null;
                             } while (currentIndex > 0 && isSkippable(currentIndex - 1));
                         }
                         refreshPracticeView();
@@ -498,10 +566,12 @@
                         span.textContent = correctChar;
                         span.classList.remove("incorrect");
                         span.classList.add("correct");
+                        typedCharacters[currentIndex] = correctChar;
                         currentIndex += 1;
                     } else if (correctChar !== " " && event.key !== " ") {
                         span.textContent = event.key;
                         span.classList.add("incorrect");
+                        typedCharacters[currentIndex] = event.key;
                         currentIndex += 1;
                     }
 
@@ -554,8 +624,43 @@
                 }
 
                 applyKoreanVisibility(koreanText);
+                if (typeof practiceProgress.koreanVisible === "boolean") {
+                    state.koreanVisible = practiceProgress.koreanVisible;
+                    applyKoreanVisibility(koreanText);
+                }
                 skipUntypableCharacters();
                 skipPunctuation();
+                if (Array.isArray(practiceProgress.typedCharacters)) {
+                    currentIndex = Math.min(
+                        Number.isInteger(practiceProgress.currentIndex) ? practiceProgress.currentIndex : 0,
+                        characters.length,
+                    );
+                    for (let index = 0; index < currentIndex; index += 1) {
+                        const span = characters[index];
+                        if (!span) {
+                            continue;
+                        }
+                        const typedValue = typedCharacters[index];
+                        const correctChar = englishText[index];
+                        const charCode = correctChar ? correctChar.charCodeAt(0) : 0;
+                        const autoSkipped = punctuationToSkip.includes(correctChar)
+                            || charCode > 126
+                            || (charCode < 32 && charCode !== 9 && charCode !== 10);
+
+                        if (typedValue != null) {
+                            if (typedValue.toLowerCase() === correctChar.toLowerCase()) {
+                                span.textContent = correctChar;
+                                span.classList.add("correct");
+                            } else {
+                                span.textContent = typedValue;
+                                span.classList.add("incorrect");
+                            }
+                        } else if (autoSkipped) {
+                            span.textContent = correctChar;
+                            span.classList.add("correct");
+                        }
+                    }
+                }
                 updateStatus();
                 updateKoreanHighlight();
                 updateCursor(false);
@@ -563,6 +668,7 @@
                 textDisplay.focus();
 
                 cleanup = () => {
+                    persistPracticeProgress();
                     if (cursorFrame !== null) {
                         cancelAnimationFrame(cursorFrame);
                     }
@@ -575,6 +681,7 @@
                     textDisplay.removeEventListener("scroll", handleScroll);
                     document.removeEventListener("keydown", handleKeydown);
                 };
+                persistCurrentMode = persistPracticeProgress;
             }
 
             function initializeFillMode() {
@@ -608,6 +715,7 @@
                 const previewToggle = document.getElementById("toggle-preview");
                 const firstLetterToggle = document.getElementById("toggle-first-letter");
                 const darkModeToggle = document.getElementById("darkModeToggle");
+                const fillProgress = getTextProgress().fill || {};
 
                 previewToggle.checked = state.settings.fillPreview;
                 firstLetterToggle.checked = state.settings.fillFirstLetter;
@@ -677,6 +785,15 @@
                         input.classList.toggle("active", input === activeInput);
                         input.readOnly = showPreview;
                     });
+                    persistFillProgress();
+                }
+
+                function persistFillProgress() {
+                    saveTextProgress("fill", {
+                        values: blanks.map((input) => input.value || ""),
+                        currentBlankIndex,
+                        koreanVisible: state.koreanVisible,
+                    });
                 }
 
                 function focusAndScroll(index) {
@@ -744,6 +861,7 @@
                     input.classList.toggle("correct", value === answer);
                     input.classList.toggle("incorrect", Boolean(value) && value !== answer);
                     updateStatus();
+                    persistFillProgress();
                 }
 
                 function handleFocus(event) {
@@ -775,6 +893,7 @@
                                 state.koreanVisible = !state.koreanVisible;
                                 applyKoreanVisibility(koreanText);
                                 updateKoreanHighlight();
+                                persistFillProgress();
                             }
                             return;
                         }
@@ -873,12 +992,32 @@
                 document.addEventListener("keydown", handleKeydown);
 
                 applyKoreanVisibility(koreanText);
+                if (typeof fillProgress.koreanVisible === "boolean") {
+                    state.koreanVisible = fillProgress.koreanVisible;
+                    applyKoreanVisibility(koreanText);
+                }
+                if (Array.isArray(fillProgress.values)) {
+                    blanks.forEach((input, index) => {
+                        const value = fillProgress.values[index];
+                        if (typeof value === "string") {
+                            input.value = value;
+                            const answer = (input.dataset.correct || "").toLowerCase();
+                            const normalized = value.toLowerCase();
+                            input.classList.toggle("correct", normalized === answer);
+                            input.classList.toggle("incorrect", Boolean(value) && normalized !== answer);
+                        }
+                    });
+                }
                 updateStatus();
                 if (blanks.length) {
-                    focusAndScroll(0);
+                    const savedBlankIndex = Number.isInteger(fillProgress.currentBlankIndex)
+                        ? fillProgress.currentBlankIndex
+                        : 0;
+                    focusAndScroll(Math.min(Math.max(savedBlankIndex, 0), blanks.length - 1));
                 }
 
                 cleanup = () => {
+                    persistFillProgress();
                     blanks.forEach((input) => {
                         input.removeEventListener("input", handleInput);
                         input.removeEventListener("focus", handleFocus);
@@ -889,6 +1028,7 @@
                     darkModeToggle.removeEventListener("change", handleDarkModeChange);
                     document.removeEventListener("keydown", handleKeydown);
                 };
+                persistCurrentMode = persistFillProgress;
             }
 
             function initializeLineMode() {
@@ -904,6 +1044,7 @@
                 const englishText = (state.text.english_content || "").replace(/\*\*/g, "");
                 const koreanText = state.text.korean_content || "";
                 const linePairs = state.text.line_pairs || [];
+                const lineProgress = getTextProgress().line || {};
                 let activeIndex = 0;
                 let resizeObserver = null;
                 let touchStartY = null;
@@ -1036,6 +1177,11 @@
                     activeIndex = nextIndex;
                     updateCardStates();
                     updateCamera(animate);
+                    persistLineProgress();
+                }
+
+                function persistLineProgress() {
+                    saveTextProgress("line", { activeIndex });
                 }
 
                 function handleKeydown(event) {
@@ -1141,6 +1287,9 @@
                 }
 
                 renderScene();
+                if (Number.isInteger(lineProgress.activeIndex)) {
+                    activeIndex = Math.min(Math.max(lineProgress.activeIndex, 0), Math.max(0, maxLineCount - 1));
+                }
                 updateCardStates();
                 syncScenePadding();
                 updateCamera(false);
@@ -1164,6 +1313,7 @@
                 document.addEventListener("keydown", handleKeydown);
 
                 cleanup = () => {
+                    persistLineProgress();
                     if (resizeObserver) {
                         resizeObserver.disconnect();
                     }
@@ -1174,6 +1324,7 @@
                     camera.removeEventListener("touchcancel", handleTouchEnd);
                     document.removeEventListener("keydown", handleKeydown);
                 };
+                persistCurrentMode = persistLineProgress;
             }
 
             function initializeStudyPage() {
@@ -1192,8 +1343,16 @@
 
             initializeStudyPage();
 
+            function handlePageHide() {
+                persistCurrentMode();
+            }
+
+            window.addEventListener("pagehide", handlePageHide);
+
             return () => {
+                persistCurrentMode();
                 cleanup();
+                window.removeEventListener("pagehide", handlePageHide);
                 document.body.classList.remove("hide-upcoming", "korean-visible", "line-mode-active");
             };
         },

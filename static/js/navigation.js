@@ -2,6 +2,12 @@
     const pages = window.EnglishStudyPages = window.EnglishStudyPages || {};
     let currentCleanup = () => {};
     let currentRequestToken = 0;
+    const pageContextKeys = {
+        currentPage: "englishStudyCurrentPage",
+        currentStudyTextPath: "englishStudyCurrentStudyTextPath",
+        previousPage: "englishStudyPreviousPage",
+        previousStudyTextPath: "englishStudyPreviousStudyTextPath",
+    };
 
     function isSameOrigin(url) {
         return url.origin === window.location.origin;
@@ -44,6 +50,35 @@
         currentRoot.replaceWith(nextRoot);
     }
 
+    function getStudyTextPathFromUrl(url, pageKey) {
+        if (pageKey !== "study") {
+            return "";
+        }
+
+        const parsed = new URL(url, window.location.href);
+        const prefix = "/study/";
+        if (!parsed.pathname.startsWith(prefix)) {
+            return "";
+        }
+        return decodeURIComponent(parsed.pathname.slice(prefix.length));
+    }
+
+    function updatePageContext(pageKey, url) {
+        try {
+            const currentPage = sessionStorage.getItem(pageContextKeys.currentPage) || "";
+            const currentStudyTextPath = sessionStorage.getItem(pageContextKeys.currentStudyTextPath) || "";
+            sessionStorage.setItem(pageContextKeys.previousPage, currentPage);
+            sessionStorage.setItem(pageContextKeys.previousStudyTextPath, currentStudyTextPath);
+            sessionStorage.setItem(pageContextKeys.currentPage, pageKey || "");
+            sessionStorage.setItem(
+                pageContextKeys.currentStudyTextPath,
+                getStudyTextPathFromUrl(url, pageKey),
+            );
+        } catch (error) {
+            // Ignore storage failures and continue without persisted page context.
+        }
+    }
+
     function initCurrentPage() {
         const pageKey = document.body.dataset.page;
         const page = pages[pageKey];
@@ -74,11 +109,12 @@
             }
 
             const nextDocument = new DOMParser().parseFromString(html, "text/html");
+            const finalUrl = response.url || targetUrl.href;
             currentCleanup();
             updateBodyFromDocument(nextDocument);
+            updatePageContext(nextDocument.body.dataset.page || "", finalUrl);
             initCurrentPage();
 
-            const finalUrl = response.url || targetUrl.href;
             if (options.history === "push") {
                 window.history.pushState({}, "", finalUrl);
             } else if (options.history === "replace") {
@@ -112,5 +148,6 @@
         initCurrentPage,
     };
 
+    updatePageContext(document.body.dataset.page || "", window.location.href);
     initCurrentPage();
 }());
