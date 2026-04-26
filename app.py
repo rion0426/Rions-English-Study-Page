@@ -1,16 +1,44 @@
 import random
+import time
 from pathlib import Path
+from datetime import datetime, timezone
 
 from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
 import logging
 
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s [%(levelname)s] %(message)s',
+    format='%(message)s',
 )
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+
+
+@app.before_request
+def _start_timer():
+    request._start_time = time.monotonic()
+
+
+@app.after_request
+def _log_request(response):
+    duration_ms = int((time.monotonic() - request._start_time) * 1000)
+    now = datetime.now(timezone.utc).strftime("%d/%b/%Y:%H:%M:%S +0000")
+    addr = request.headers.get("X-Forwarded-For", request.remote_addr)
+    logger.info(
+        '%s - - [%s] "%s %s %s" %d %s "%s" "%s" %dms',
+        addr,
+        now,
+        request.method,
+        request.full_path.rstrip("?"),
+        request.environ.get("SERVER_PROTOCOL", "HTTP/1.1"),
+        response.status_code,
+        response.content_length if response.content_length is not None else "-",
+        request.referrer or "-",
+        request.user_agent,
+        duration_ms,
+    )
+    return response
 
 APP_ROOT = Path(__file__).resolve().parent
 TEXTS_BASE_DIR = APP_ROOT / "texts"
@@ -228,13 +256,11 @@ def index() -> str:
 @app.route("/select/")
 @app.route("/select/<path:subdirectory>")
 def select_page(subdirectory: str = "") -> str:
-    logger.info("select path=%r", subdirectory)
     return _render_select_page(subdirectory)
 
 
 @app.route("/study/<path:text_path>")
 def study_page(text_path: str) -> str:
-    logger.info("study path=%r mode=%r", text_path, request.args.get("mode"))
     return _render_study_page(text_path, request.args.get("mode"))
 
 
