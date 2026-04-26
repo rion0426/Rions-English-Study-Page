@@ -2,6 +2,13 @@ import random
 from pathlib import Path
 
 from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s [%(levelname)s] %(message)s',
+)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
 
@@ -9,7 +16,7 @@ APP_ROOT = Path(__file__).resolve().parent
 TEXTS_BASE_DIR = APP_ROOT / "texts"
 IMAGE_DIR = APP_ROOT / "static" / "img"
 KOREAN_SEPARATOR = "--korean--"
-HANGUL_RANGE = ("\uac00", "\ud7a3")
+HANGUL_RANGE = ("가", "힣")
 
 
 def _resolve_under(base_dir: Path, relative_path: str = "") -> Path:
@@ -58,11 +65,6 @@ def _build_breadcrumbs(subdirectory: str = "") -> tuple[list[dict[str, str]], st
     return breadcrumbs, parent_path
 
 
-def _split_text_content(raw_text: str) -> tuple[str, str]:
-    parsed = _parse_text_content(raw_text)
-    return parsed["english_content"], parsed["korean_content"]
-
-
 def _normalize_study_mode(mode: str | None) -> str:
     if mode in {"fill", "line"}:
         return mode
@@ -90,7 +92,7 @@ def _parse_legacy_separator_format(raw_text: str) -> dict[str, str | list[dict[s
 
 
 def _parse_alternating_line_format(raw_text: str) -> dict[str, str | list[dict[str, str]]] | None:
-    lines = [line.strip() for line in raw_text.replace("\ufeff", "").splitlines() if line.strip()]
+    lines = [line.strip() for line in raw_text.replace("﻿", "").splitlines() if line.strip()]
     if len(lines) < 2 or len(lines) % 2 != 0:
         return None
 
@@ -116,7 +118,7 @@ def _parse_alternating_line_format(raw_text: str) -> dict[str, str | list[dict[s
 
 
 def _parse_text_content(raw_text: str) -> dict[str, str | list[dict[str, str]]]:
-    normalized = raw_text.replace("\ufeff", "").strip()
+    normalized = raw_text.replace("﻿", "").strip()
     if KOREAN_SEPARATOR in normalized:
         return _parse_legacy_separator_format(normalized)
 
@@ -158,6 +160,7 @@ def _load_text_payload(text_path: str) -> dict[str, str | None]:
     try:
         raw_text = file_path.read_text(encoding="utf-8")
     except OSError as exc:
+        logger.error("failed to read file %r: %s", file_path, exc)
         abort(500, f"Error reading file: {exc}")
 
     parsed_content = _parse_text_content(raw_text)
@@ -225,11 +228,13 @@ def index() -> str:
 @app.route("/select/")
 @app.route("/select/<path:subdirectory>")
 def select_page(subdirectory: str = "") -> str:
+    logger.info("select path=%r", subdirectory)
     return _render_select_page(subdirectory)
 
 
 @app.route("/study/<path:text_path>")
 def study_page(text_path: str) -> str:
+    logger.info("study path=%r mode=%r", text_path, request.args.get("mode"))
     return _render_study_page(text_path, request.args.get("mode"))
 
 
