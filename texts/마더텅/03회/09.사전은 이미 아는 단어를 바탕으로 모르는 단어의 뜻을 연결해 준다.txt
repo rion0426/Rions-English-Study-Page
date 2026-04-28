@@ -1,0 +1,14 @@
+**Dictionaries** are relatively good **resources** for anyone **interested** in finding out what a **word** means.
+사전은 어떤 단어의 의미를 알아보는 데 관심이 있는 사람에게 비교적 좋은 자료이다.
+Using one **set** of words to **define** another word is called a **lexical** **definition**.
+한 단어를 다른 단어들의 집합으로 정의하는 것을 어휘적 정의라고 한다.
+But it's **important** to understand the **limits** of dictionary definitions.
+그러나 사전적 정의의 한계를 이해하는 것이 중요하다.
+More often than not, a definition in a dictionary **requires** **readers** to have a fairly **robust** **understanding** of the **language** already at their disposal.
+대개 사전에 실린 정의를 이해하려면 독자는 이미 그 언어를 꽤 탄탄하게 이해하고 있어야 한다.
+In other words, a dictionary **functions** in many cases as a **cross-reference** or **translator** between words one knows and words that one doesn't yet know.
+다시 말해, 사전은 많은 경우 자신이 이미 아는 단어와 아직 알지 못하는 단어 사이를 연결해 주는 상호 참조표나 번역기 역할을 한다.
+Even the most **obscure** words in a dictionary, say, for example, "pulchritudinous" or "kalokagathia," must be **defined** using words that the reader already knows and understands.
+예를 들어 "pulchritudinous"나 "kalokagathia" 같은 사전 속의 아주 생소한 단어조차도 독자가 이미 알고 이해하는 단어들로 정의되어야 한다.
+Otherwise, the dictionary isn't very helpful.
+그렇지 않으면 그 사전은 별로 도움이 되지 않는다.
