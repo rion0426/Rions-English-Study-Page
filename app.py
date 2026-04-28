@@ -1,15 +1,50 @@
 import random
+import time
 from pathlib import Path
+from datetime import datetime, timezone
 
 from flask import Flask, abort, jsonify, redirect, render_template, request, url_for
+import logging
+
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(message)s',
+)
+logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
+
+
+@app.before_request
+def _start_timer():
+    request._start_time = time.monotonic()
+
+
+@app.after_request
+def _log_request(response):
+    duration_ms = int((time.monotonic() - request._start_time) * 1000)
+    now = datetime.now(timezone.utc).strftime("%d/%b/%Y:%H:%M:%S +0000")
+    addr = request.headers.get("X-Forwarded-For", request.remote_addr)
+    logger.info(
+        '%s - - [%s] "%s %s %s" %d %s "%s" "%s" %dms',
+        addr,
+        now,
+        request.method,
+        request.full_path.rstrip("?"),
+        request.environ.get("SERVER_PROTOCOL", "HTTP/1.1"),
+        response.status_code,
+        response.content_length if response.content_length is not None else "-",
+        request.referrer or "-",
+        request.user_agent,
+        duration_ms,
+    )
+    return response
 
 APP_ROOT = Path(__file__).resolve().parent
 TEXTS_BASE_DIR = APP_ROOT / "texts"
 IMAGE_DIR = APP_ROOT / "static" / "img"
 KOREAN_SEPARATOR = "--korean--"
-HANGUL_RANGE = ("\uac00", "\ud7a3")
+HANGUL_RANGE = ("가", "힣")
 
 
 def _resolve_under(base_dir: Path, relative_path: str = "") -> Path:
@@ -58,11 +93,6 @@ def _build_breadcrumbs(subdirectory: str = "") -> tuple[list[dict[str, str]], st
     return breadcrumbs, parent_path
 
 
-def _split_text_content(raw_text: str) -> tuple[str, str]:
-    parsed = _parse_text_content(raw_text)
-    return parsed["english_content"], parsed["korean_content"]
-
-
 def _normalize_study_mode(mode: str | None) -> str:
     if mode in {"fill", "line"}:
         return mode
@@ -90,7 +120,7 @@ def _parse_legacy_separator_format(raw_text: str) -> dict[str, str | list[dict[s
 
 
 def _parse_alternating_line_format(raw_text: str) -> dict[str, str | list[dict[str, str]]] | None:
-    lines = [line.strip() for line in raw_text.replace("\ufeff", "").splitlines() if line.strip()]
+    lines = [line.strip() for line in raw_text.replace("﻿", "").splitlines() if line.strip()]
     if len(lines) < 2 or len(lines) % 2 != 0:
         return None
 
@@ -116,7 +146,7 @@ def _parse_alternating_line_format(raw_text: str) -> dict[str, str | list[dict[s
 
 
 def _parse_text_content(raw_text: str) -> dict[str, str | list[dict[str, str]]]:
-    normalized = raw_text.replace("\ufeff", "").strip()
+    normalized = raw_text.replace("﻿", "").strip()
     if KOREAN_SEPARATOR in normalized:
         return _parse_legacy_separator_format(normalized)
 
@@ -158,6 +188,7 @@ def _load_text_payload(text_path: str) -> dict[str, str | None]:
     try:
         raw_text = file_path.read_text(encoding="utf-8")
     except OSError as exc:
+        logger.error("failed to read file %r: %s", file_path, exc)
         abort(500, f"Error reading file: {exc}")
 
     parsed_content = _parse_text_content(raw_text)
