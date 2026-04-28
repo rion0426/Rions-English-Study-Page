@@ -1,0 +1,12 @@
+When gathering the **preferences** of multiple **agents** into one **collective** choice, it is easily seen that certain cases **call** for **randomization** or other means of **tiebreaking**.
+여러 행위자의 선호를 하나의 집단적 선택으로 모을 때, 특정한 경우에는 무작위화나 다른 동점 해소 방식이 필요하다는 점을 쉽게 알 수 있다.
+For example, if there are two **alternatives**, a and b, and two agents such that one prefers a and the other one b, there is no **deterministic** way of selecting a single alternative without violating one of two basic **fairness** conditions known as anonymity and neutrality.
+예를 들어 두 가지 대안 a와 b가 있고 두 명의 행위자 중 한 명은 a를 선호하고 다른 한 명은 b를 선호한다면, 익명성과 중립성으로 알려진 두 가지 기본적인 공정성 조건 중 하나를 위반하지 않고서는 하나의 대안을 결정적으로 선택할 방법이 없다.
+Anonymity requires that the collective choice ought to be independent of the agents' identities whereas **neutrality** requires **impartiality** towards the alternatives.
+익명성은 집단적 선택이 행위자의 신원과 무관해야 한다고 요구하는 반면, 중립성은 대안들에 대해 공평해야 한다고 요구한다.
+Allowing **lotteries** as social **outcomes** hence seems like a necessity for impartial collective choice.
+따라서 추첨을 사회적 결과로 허용하는 것은 공정한 집단 선택을 위해 필수적인 것처럼 보인다.
+Indeed, most common "deterministic" social choice **functions** such as plurality rule are only deterministic as long as there is no tie, which is usually resolved by drawing a lot.
+실제로 복수 규칙과 같은 대부분의 일반적인 '결정적' 사회적 선택 기능은 동점이 없을 때에만 결정적이며, 동점은 보통 제비뽑기로 해결된다.
+The use of lotteries for the selection of officials **interestingly** goes back to the world's first **democracy** in Athens, where it was widely regarded as a principal characteristic of democracy, and has recently gained increasing attention in political science.
+관료 선출을 위한 추첨의 사용은 흥미롭게도 세계 최초의 민주주의였던 아테네로 거슬러 올라가며, 그곳에서는 그것이 민주주의의 주요 특징으로 널리 여겨졌고 최근에는 정치학에서 점점 더 많은 관심을 받고 있다.

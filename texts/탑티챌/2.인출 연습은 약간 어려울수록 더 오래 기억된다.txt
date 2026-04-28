@@ -1,0 +1,14 @@
+What makes practicing **retrieval** so much better than review?
+무엇이 인출 연습을 단순 복습보다 훨씬 더 효과적으로 만드는가?
+One answer comes from psychologist R. A. Bjork's concept of **desirable** **difficulty**.
+한 가지 답은 심리학자 R. A. Bjork의 '바람직한 어려움'이라는 개념에서 나온다.
+More difficult retrieval **leads** to better **learning**, provided the act of retrieval is itself successful.
+인출 자체가 성공적이기만 하다면, 더 어려운 인출은 더 나은 학습으로 이어진다.
+Free recall tests, in which students need to recall as much as they can remember without prompting, tend to result in better **retention** than cued recall tests, in which students are given hints about what they need to remember.
+학생들이 아무런 단서 없이 기억나는 한 최대한 많이 떠올려야 하는 자유 회상 검사는 학생들에게 기억해야 할 것에 대한 힌트가 주어지는 단서 회상 검사보다 더 나은 기억 유지로 이어지는 경향이 있다.
+Cued recall tests, in turn, are better than **recognition** tests, such as multiple-choice answers, where the correct answer needs to be recognized but not generated.
+그리고 단서 회상 검사는 다시 말해 정답을 만들어 내는 것이 아니라 알아보기만 하면 되는 객관식과 같은 재인 검사보다 더 낫다.
+Giving someone a test immediately after they learn something improves retention less than giving them a slight **delay**, long enough so that answers aren't in mind when they need them.
+무언가를 배운 직후 바로 시험을 보게 하는 것은, 답이 필요할 때 그것이 곧바로 떠오르지 않을 정도로 약간의 지연을 둔 뒤 시험을 보게 하는 것보다 기억 유지 향상 효과가 적다.
+Difficulty, far from being a barrier to making retrieval work, may be part of the reason it does so.
+어려움은 인출이 작동하는 데 장애물이 되기는커녕, 오히려 그것이 효과를 내는 이유의 일부일 수 있다.
